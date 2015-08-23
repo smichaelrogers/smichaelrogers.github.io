@@ -8,7 +8,7 @@ body {
 }
 canvas {
     border: 10px solid #f6f5f5;
-  background: url(/assets/ps_neutral_@2X.png);
+  background: url("./assets/bg.png");
     transform: rotateX(180deg);
 }
 #canvas-wrap {
