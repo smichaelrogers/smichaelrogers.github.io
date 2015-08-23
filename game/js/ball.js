@@ -14,7 +14,7 @@
 		this.a = -0.7;
 		this.dY = 0.0;
 		this.t = 0.0;
-		this.v0 = 18.0;
+		this.v0 = 20.0;
 		this.y0 = 800.0;
 		this.diving = false;
 		this.dYN = [1, 1, 1];
@@ -94,7 +94,7 @@
 
 	p.jump = function () {
 		if (this.jumpReleased && this.jumps > 0 && !this.diving && (this.t > 0.15 || Math.abs(this.squish) < 0.01)) {
-			this.v0 = 18.0;
+			this.v0 = 20.0;
 			this.t = 0.0;
 			this.jumpTimer = 0;
 			this.y0 = this.y;

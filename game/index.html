@@ -23,8 +23,8 @@ var PLATFORM_HEIGHT = 8;
 var BALL_SIZE = 12;
 var ROWS = 200;
 var COLUMNS = 20;
-var ROW_HEIGHT = 320;
-var COLUMN_WIDTH = 500;
+var ROW_HEIGHT = 360;
+var COLUMN_WIDTH = 1000;
 var canvas;
 var w;
 var h;
@@ -152,7 +152,7 @@ function handleClick() {
 function restart() {
     stage.removeChild(messageField);
     world.removeAllChildren();
-    difficulty = 10;
+    difficulty = 11;
     nextRound = 1000;
     round = 1;
     roundField.text = "";
@@ -251,18 +251,21 @@ function setAssets() {
                 startX = x * COLUMN_WIDTH;
                 startY = y * ROW_HEIGHT;
                 pX = Math.random() * (COLUMN_WIDTH);
+                if(pX < .25 * COLUMN_WIDTH) {
+                  pX += 0.25 * COLUMN_WIDTH;
+                }
                 pY = Math.random() * (ROW_HEIGHT);
                 gapX = COLUMN_WIDTH - pX;
                 gapY = ROW_HEIGHT - pY;
                 if (x % 2 === 0) {
                     startX += gapX;
-                    startY += (gapY + .5*ROW_HEIGHT);
+                    startY += (gapY + .8*ROW_HEIGHT);
                 } else {
                     startX += gapX;
-                    startY -= (gapY + .5*ROW_HEIGHT);
+                    startY -= (gapY + .8*ROW_HEIGHT);
                 }
                 addChance *= 0.85;
-                p = new Platform(startX, startY, difficulty, 0, pX + (.6* COLUMN_WIDTH), PLATFORM_HEIGHT, x, y);
+                p = new Platform(startX, startY, difficulty, 0, pX + (.2* COLUMN_WIDTH), PLATFORM_HEIGHT, x, y);
                 platforms.push(p);
                 world.addChild(p);
             } else {}

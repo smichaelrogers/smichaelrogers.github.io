@@ -49,7 +49,7 @@ var colors = ["rgba(255, 0, 123, 0.2)", "rgba(0, 87, 255, 0.2)", "rgba(204, 255,
 	}
 
 	p.increaseSpeed = function() {
-		this.vX+=1.5;
+		this.vX+=2;
 	}
 
 	window.Platform = createjs.promote(Platform, "Container");
