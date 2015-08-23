@@ -1,0 +1,17 @@
+html, body {
+    width: 100%;
+    height: auto;
+    background: rgb(85, 85, 85);
+  }
+body {
+    text-align: center;
+}
+canvas {
+    border: 10px solid #f6f5f5;
+  background: url(/assets/ps_neutral_@2X.png);
+    transform: rotateX(180deg);
+}
+#canvas-wrap {
+    position: relative;
+}
+#content {}
