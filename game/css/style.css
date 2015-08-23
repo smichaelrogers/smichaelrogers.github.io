@@ -1,14 +1,15 @@
 html, body {
     width: 100%;
     height: auto;
-    background: rgb(85, 85, 85);
+    background: rgb(201, 201, 201);
   }
 body {
     text-align: center;
+    padding-top: 5px;
 }
 canvas {
-    border: 10px solid #f6f5f5;
-  background: url("./assets/bg.png");
+    border: 25px solid #7e7e7e;
+  background: rgb(241, 241, 241);
     transform: rotateX(180deg);
 }
 #canvas-wrap {
