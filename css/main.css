@@ -1,17 +1,5 @@
-/*! HTML5 Boilerplate v5.1.0 | MIT License | https://html5boilerplate.com/ */
-
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
+@import url(http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,900,900italic|Raleway:400,100,900,200,300|Alegreya+Sans+SC:400,100,500,900,900italic,300,100italic,300italic|Roboto:400,100|Josefin+Sans:400,300,400italic,100italic,100|Work+Sans:400,200,100,300,900,500);
 html {
-
     font-size: 1em;
     line-height: 1.4;
 }
@@ -25,33 +13,15 @@ html {
  */
 
 ::-moz-selection {
-    background: #b3d4fc;
+    background: #fcb3bc;
     text-shadow: none;
 }
 
 ::selection {
-    background: #b3d4fc;
+    background: #fcb3c9;
     text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
 
 audio,
 canvas,
@@ -61,76 +31,147 @@ svg,
 video {
     vertical-align: middle;
 }
-
-/*
- * Remove default fieldset styles.
- */
-
 fieldset {
     border: 0;
     margin: 0;
     padding: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
 textarea {
     resize: vertical;
 }
 
-/* ==========================================================================
-   Browser Upgrade Prompt
-   ========================================================================== */
+body, html {
+  background: rgb(0, 0, 0);
+  color: rgb(255,255,255);
+  font-family: "Helvetica Neue", "Proxima Nova", "Open Sans", "Source Sans Pro", "Raleway", "Roboto", "Helvetica", "Arial", sans-serif;
+}
+#wrapper {
+  display: block;
+  width: 900px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
 
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+ul.navbar {
+  padding: 20px 10px;
+  display: block;
+  float: left;
+}
+
+.navbar li {
+  display: block;
+  float: left;
+  margin: 0 10px;
+}
 
 
-body, html {
-  background: rgb(0,0,0);
-  color: rgb(255,255,255);
+
+
+a, a:active, a:visited, a:focus {
+  color: #FF004C;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(68, 68, 68);
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 100;
 }
 
 s1{
   background: #FF004C;
 }
 
+section.header {
+  display: block;
+  position: relative;
+
+}
+
+section.header img {
+  display: block;
+  width: 900px;
+  height: auto;
+}
+
+section.header h1 {
+  display: block;
+  position: absolute;
+  bottom: 5px;
+  font-size: 40px;
+  left: 10px;
+  letter-spacing: 1px;
+}
+
+section.header h4 {
+  display: block;
+  position: absolute;
+  bottom: -6px;
+  left: 180px;
+  font-size: 18px;
+  letter-spacing: 0px;
+}
+
+section.header-skills {
+  background: #FF004C;
+  float: left;
+  display: block;
+  position: relative;
+  padding: 0px 24px;
+}
+.skills-block {
+  float: left;
+  display: block;
+}
+
+.skills-block h2 {
+  display: block;
+  float: left;
+  padding: 0px 12px;
+  font-size: 32px;
+  line-height: 32px;
+  letter-spacing: 4px;
+}
+span.thick {
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+
+
+ul.skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  display: block;
+
+}
+ul.skills-list li {
+  float: left;
+  padding-right: 2px;
+  letter-spacing: 2px;
+}
+
+ul.skills-list li:nth-child(even) {
+  font-weight: 700;
+}
+
+ul.skills-list li:nth-child(odd) {
+  font-weight: 100;
+}
 
 
 
 
-
-
-
-
-
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers:
- */
 
 .hidden {
     display: none !important;
 }
 
-/*
- * Hide only visually, but have it available for screen readers:
- * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- */
 
 .visuallyhidden {
     border: 0;
@@ -143,12 +184,6 @@ s1{
     width: 1px;
 }
 
-/*
- * Extends the .visuallyhidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
-
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
     clip: auto;
@@ -159,25 +194,10 @@ s1{
     width: auto;
 }
 
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
 .invisible {
     visibility: hidden;
 }
 
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
 
 .clearfix:before,
 .clearfix:after {
@@ -189,28 +209,14 @@ s1{
     clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
 @media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+
 }
 
 @media print,
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
 }
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   http://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
 @media print {
     *,
     *:before,

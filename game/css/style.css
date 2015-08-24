@@ -1,15 +1,15 @@
 html, body {
     width: 100%;
     height: auto;
+    border: 0;
+    padding: 0;
     background: rgb(201, 201, 201);
   }
 body {
     text-align: center;
-    padding-top: 5px;
 }
 canvas {
-  border: 5px solid rgb(68, 68, 68);
-  background: rgb(222, 222, 222);
+  background: url("../assets/paper_fibers_@2x.png");
   transform: rotateX(180deg);
 }
 #canvas-wrap {

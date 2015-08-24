@@ -10,12 +10,12 @@
 			.beginRadialGradientFill(["rgb(255, 255, 255)", "rgba(255, 0, 84, 1)"], [0, 1], this.size / 2, this.size * 1.33, 0, this.size / 3, this.size * 1.33, this.size / 2)
 			.drawCircle(this.size / 2, this.size, this.size);
 		this.jumpReleased = true;
-		this.jumps = 3;
+		this.jumps = 5;
 		this.a = -0.7;
 		this.dY = 0.0;
 		this.t = 0.0;
-		this.v0 = 20.0;
-		this.y0 = 800.0;
+		this.v0 = 16.0;
+		this.y0 = 500.0;
 		this.diving = false;
 		this.dYN = [1, 1, 1];
 		this.idx = 0;
@@ -36,14 +36,14 @@
 	var sum;
 
 	p.recognizeAltitude = function (worldY) {
-		this.a = -0.8 + (Math.abs(this.y) / (worldY * 3));
+		this.a = -0.7 + (Math.abs(this.y) / (worldY * 3));
 	}
 
 	p.tick = function (event) {
 		this.assertSquishiness();
 		this.t += 1.0;
 		this.jumpTimer += 1.0;
-		if (this.jumpTimer >= 25 + ((this.a + 1) * 100) && this.jumps < 3) {
+		if (this.jumpTimer >= 24 + ((this.a + 1) * 100) && this.jumps < 5) {
 			this.jumps++;
 			console.log(((this.a + 1) * 40));
 			this.jumpTimer = 0;
@@ -94,7 +94,7 @@
 
 	p.jump = function () {
 		if (this.jumpReleased && this.jumps > 0 && !this.diving && (this.t > 0.15 || Math.abs(this.squish) < 0.01)) {
-			this.v0 = 20.0;
+			this.v0 = 16.0;
 			this.t = 0.0;
 			this.jumpTimer = 0;
 			this.y0 = this.y;
@@ -105,8 +105,8 @@
 
 	p.dive = function () {
 		if (!this.diving && this.jumpReleased & this.t > 1) {
-			this.t = 0.0;
-			this.v0 = -32.0;
+			this.t = 0.5;
+			this.v0 = -36.0;
 			this.y0 = this.y + 60;
 			this.jumpReleased = false;
 			this.diving = true;

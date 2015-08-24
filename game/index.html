@@ -10,7 +10,7 @@
 <body onload="init();">
     <div id="content-wrap">
         <div id="content">
-            <canvas id="gameCanvas" width="800" height="500"></canvas>
+            <canvas id="gameCanvas" width="900" height="600"></canvas>
         </div>
     </div>
     <script src="lib/preloadjs-NEXT.min.js"></script>
@@ -19,17 +19,19 @@
     <script src="js/platform.js"></script>
     <script src="js/utils.js"></script>
     <script>
-var PLATFORM_HEIGHT = 8;
-var BALL_SIZE = 12;
+var PLATFORM_HEIGHT = 10;
+var BALL_SIZE = 10;
 var ROWS = 100;
 var COLUMNS = 20;
 var ROW_HEIGHT = 400;
-var COLUMN_WIDTH = 360;
+var COLUMN_WIDTH = 160;
 var canvas;
 var w;
 var h;
 var stage;
 var world;
+var bg;
+var bgGradient;
 var grid;
 var worldWidth;
 var worldHeight;
@@ -47,6 +49,11 @@ var gravityField;
 var jumpHeld;
 var diveHeld;
 var nextRound;
+var splash;
+var queue;
+var loadField;
+var loadingInterval = 0;
+
 
 document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
@@ -59,19 +66,76 @@ function init() {
     h = canvas.scrollHeight;
     stage = new createjs.Stage(canvas);
     world = new createjs.Container();
-
     stage.addChild(world);
 
+    loadField = new createjs.Text("Loading", "bold italic 28px 'Helvetica Neue'", "#ff0054");
+    loadField.scaleY = -1;
+    loadField.maxWidth = 1000;
+    loadField.textAlign = "center";
+    loadField.textBaseline = "middle";
+    loadField.x = w / 2;
+    loadField.y = h / 2;
+
+    stage.addChild(loadField);
+    stage.update();
+
+    queue = new createjs.LoadQueue();
+    queue.addEventListener("complete", handleComplete);
+    queue.addEventListener("progress", handleProgress);
+
+    queue.loadManifest([{
+        id: "splash",
+        src: "assets/splash.png"
+    }, {
+        id: "bg",
+        src: "assets/slice1.png"
+    }]);
+}
+function handleProgress(event) {
+    loadField.text = "Loading\n"  + (queue.progress * 100 | 0) + "%";
+    stage.update();
+}
+
+function handleComplete(event) {
+    clearInterval(loadingInterval);
+    stage.removeChild(loadField);
+
+    bg = new createjs.Container();
+    bgGradient = new createjs.Bitmap(queue.getResult("bg"));
+    bg.addChild(bgGradient);
+    bg.scaleY = -1;
+
+    splash = new createjs.Container();
+    var img = new createjs.Bitmap(queue.getResult("splash"));
+    splash.addChild(img);
+    splash.scaleY = -1;
+
+
+    stage.addChild(bg, splash);
+
+    stage.setChildIndex(world, 1);
+    stage.setChildIndex(splash, 2);
+    stage.setChildIndex(bg, 3);
+
+    stage.update();
+    canvas.onclick = newGame;
+}
+
+function newGame(event) {
+    stage.removeChild(splash);
 
     startBall = new createjs.Shape();
-		startBall.graphics.setStrokeStyle(2).beginRadialGradientFill(["rgb(255, 255, 255)", "rgba(255, 0, 84, 1)"], [0, 1], 24, 48, 0, 18, 48, 24).drawCircle(36, 72, 72);
-    startBall.x = w *.2;
+    startBall.graphics.setStrokeStyle(0).beginRadialGradientFill(["rgb(255, 255, 255)", "rgba(255, 0, 84, 1)"], [0, 1], 48, 90, 0, 50, 90, 36).drawCircle(36, 72, 72);
+    startBall.x = w * .2;
     startBall.y = h * .4;
-    messageField = new createjs.Text("0", "italic 16px 'Helvetica Neue'", "#000000");
+    startBall.scaleX = .7;
+    startBall.scaleY = -1.7;
+
+    messageField = new createjs.Text("Click", "normal 14px 'Helvetica Neue'", "#000000");
     messageField.textAlign = "left";
-    messageField.lineHeight = 30;
-    messageField.x = w * 0.4;
-    messageField.y = h * 0.8;
+    messageField.lineHeight = 24;
+    messageField.x = w * 0.3;
+    messageField.y = h * 0.6;
     messageField.maxWidth = w;
 
     roundField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#000000");
@@ -104,41 +168,25 @@ function init() {
     distanceField.y = h - 4;
     distanceField.maxWidth = 1000;
 
+    stage.addChild(startBall, messageField);
+    stage.setChildIndex(world, 1);
+    stage.setChildIndex(messageField, 2);
+    stage.setChildIndex(bg, 3);
 
-
-    stage.addChild(messageField, startBall);
     messageField.scaleY = -1;
-    messageField.text = "Hello!, I am a ball,\n and I simply love bouncing! \n\n I generally get much more height from\n a good bounce than a boring jump.\n\n\n (click)";
-    stage.update();
-    canvas.onclick = newGame;
-}
+    messageField.text = "↑ jump \n↓ bounce \n↑ weaker gravity, less platforms, longer jump regeneration \n↓ stronger gravity, more platforms, shorter jump regeneration\n\nreach the top to win\n\ncick to start";
 
-function newGame() {
-  canvas.onclick = null;
-  messageField.text = "I have a huge favor to ask...\n\nCould you help me get all \nthe way to the top of this level? \nWhy? Shut up and help me\n\n\n (click)";
-  stage.update();
-
-canvas.onclick = newGame2;
-
-
-}
-
-function newGame2() {
-  canvas.onclick = null;
-  messageField.text = "Okay so listen up! \n\nTo make me jump, press up \nTo make me dive into a bounce, press down\nOh yeah, I can jump while midair, \nbut .. I get tired easily,\nso keep an eye on how many more times I can jump.\nI think that's it... Good luck!\n\n\n(click to start)";
-  stage.update();
-
-  canvas.onclick = handleClick;
+    canvas.onclick = handleClick;
 }
 
 function retry() {
-  if (createjs.Ticker.hasEventListener("tick")) {
-      createjs.Ticker.removeEventListener("tick", tick);
-  }
-  messageField.text = "Try again (click)";
-  stage.addChild(messageField);
+    if (createjs.Ticker.hasEventListener("tick")) {
+        createjs.Ticker.removeEventListener("tick", tick);
+    }
+    messageField.text = "";
+    stage.addChild(messageField);
 
-  canvas.onclick = restart;
+    canvas.onclick = restart;
 }
 
 
@@ -152,7 +200,7 @@ function handleClick() {
 function restart() {
     stage.removeChild(messageField);
     world.removeAllChildren();
-    difficulty = 11;
+    difficulty = 8;
     nextRound = 1000;
     round = 1;
     roundField.text = "";
@@ -164,6 +212,7 @@ function restart() {
     diveHeld = false;
 
     setAssets();
+
     if (!createjs.Ticker.hasEventListener("tick")) {
         createjs.Ticker.addEventListener("tick", tick);
     }
@@ -171,12 +220,14 @@ function restart() {
 }
 
 function setAssets() {
-  stage.addChild(distanceField, roundField, jumpField, jumpSubField, gravityField);
-  roundField.scaleY = -1;
-  distanceField.scaleY = -1;
-  jumpField.scaleY = -1;
-  jumpSubField.scaleY = -1;
-  gravityField.scaleY = -1;
+    stage.addChild(distanceField, roundField, jumpField, jumpSubField, gravityField);
+    roundField.scaleY = -1;
+    distanceField.scaleY = -1;
+    jumpField.scaleY = -1;
+    jumpSubField.scaleY = -1;
+    gravityField.scaleY = -1;
+    bg.x = 0;
+    bg.y = 2400;
     world.x = 0;
     world.y = 0;
     var setPlatform = false;
@@ -248,21 +299,21 @@ function setAssets() {
                 }
             }
             if (!grid[x][y]) {
-                startX = (x-1) * COLUMN_WIDTH;
-                startY = (y-1) * ROW_HEIGHT;
+                startX = (x - 1) * COLUMN_WIDTH;
+                startY = (y - 1) * ROW_HEIGHT;
                 pX = Math.random() * (COLUMN_WIDTH) * 2;
-                if(pX < .25 * COLUMN_WIDTH) {
-                  pX += 150;
+                if (pX < .5 * COLUMN_WIDTH) {
+                    pX += .5 * COLUMN_WIDTH;
                 }
                 pY = Math.random() * ROW_HEIGHT;
-                gapX = Math.random() * COLUMN_WIDTH - pX * 0.5;
+                gapX = COLUMN_WIDTH - (pX * 0.5);
                 gapY = ROW_HEIGHT - pY;
                 if (x % 2 === 0) {
                     startX += gapX;
-                    startY += (gapY + ROW_HEIGHT);
+                    startY += gapY + ROW_HEIGHT;
                 } else {
                     startX += gapX;
-                    startY -= (gapY + ROW_HEIGHT);
+                    startY -= gapY + ROW_HEIGHT;
                 }
                 addChance *= 0.9;
                 p = new Platform(startX, startY, difficulty, 0, pX, PLATFORM_HEIGHT, x, y);
@@ -286,8 +337,8 @@ function setAssets() {
     if (createjs.Ticker.hasEventListener("tick")) {
         createjs.Ticker.removeEventListener("tick", tick);
     }
-    // world.scaleX = 0.03;
-    // world.scaleY = 0.03;
+    // world.scaleX = 0.05;
+    // world.scaleY = 0.05;
 }
 
 function tick(event) {
@@ -302,8 +353,10 @@ function tick(event) {
     var diff = Math.abs(worldY - world.y);
     if (diff > 20) {
         if (world.y < worldY) {
+            bg.y += .5;
             world.y += 10 * (diff / 80);
         } else if (world.y >= worldY) {
+            bg.y -= .5;
             world.y -= 10 * (diff / 80);
         }
     }
@@ -342,14 +395,13 @@ function tick(event) {
         ball.recognizeAltitude(worldHeight);
     }
 
-
     if (nextRound <= 0) {
         round += 1;
         nextRound = 1000;
         increaseDifficulty();
     }
     roundField.text = "Round: " + round;
-    distanceField.text = Math.floor((worldHeight - ball.y) / 100) + " to go";
+    distanceField.text = Math.floor((worldHeight - ball.y) / 10) + "m to go";
     jumpField.text = ball.jumps + "";
     gravityField.text = "Gravity: " + (ball.a * 10).toFixed(1);
     ball.tick(event);

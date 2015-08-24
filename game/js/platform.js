@@ -1,17 +1,21 @@
 (function (window) {
-var colors = ["rgba(255, 0, 123, 0.2)", "rgba(0, 87, 255, 0.2)", "rgba(204, 255, 0, 0.2)", "rgba(255, 0, 0, 0.2)", "rgba(197, 0, 255, 0.2)", "rgba(0, 148, 255, 0.2)", "rgba(0, 255, 25, 0.2)", "rgba(196, 196, 196, 0.2)", "rgba(255, 199, 0, 0.2)", "rgba(98, 98, 98, 0.2)", "rgba(181, 178, 180, 0.2)", "rgba(152, 152, 152, 0.2)"];
+var colors = ["rgba(0, 110, 255, 0.15)", "rgba(255, 46, 0, 0.15)", "rgba(255, 214, 0, 0.15)", "rgba(255, 138, 0, 0.15)", "rgba(0, 33, 255, 0.15)", "rgba(172, 172, 172, 0.15)", "rgba(175, 175, 175, 0.15)"];
 	function Platform(startX, startY, vX, vY, sizeX, sizeY, column, row) {
 		this.Container_constructor()
-		var color = colors[Math.floor(Math.random() * 12)];
+		var color = colors[Math.floor(Math.random() * 7)];
 		this.platform = new createjs.Shape();
 		this.platform2 = new createjs.Shape();
 		b = Math.sqrt(Math.pow(sizeX, 2) + Math.pow(.5*sizeX, 2));
-		this.platform2.graphics.ss(2).s("rgb(0, 0, 0)").f("rgba(0, 0, 0, 0)")
-			.rc(0,0,sizeX,sizeY, 0,0,sizeY, sizeY)
+		this.platform2.graphics.ss(2).s("rgba(147, 147, 147, 1)").f("rgba(255, 255, 255, 0.02)")
+			.lt(0,0)
+			.lt(-5, sizeY)
+			.lt(sizeX +5, sizeY)
+			.lt(sizeX, 0)
+			.lt(0,0)
 			.closePath();
 		this.platform.graphics.f(color)
 			.lt(0, 0)
-			.lt(sizeX, 0)
+			.lt(sizeX - 5, 0)
 			.lt(.5*sizeX, -b)
 			.lt(0,0)
 			.closePath();
