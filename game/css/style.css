@@ -1,0 +1,35 @@
+@import url(http://fonts.googleapis.com/css?family=Quicksand:400,300,700);
+html, body {
+    width: 100%;
+    height: auto;
+    border: 0;
+    padding: 0;
+    background: rgb(255, 255, 255);
+}
+#heading {
+  width: 900px;
+  margin: 0 auto;
+  display: block;
+}
+h1 {
+  font-family: "Quicksand";
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 48px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  color: rgb(186, 186, 186);
+}
+body {
+    text-align: center;
+}
+canvas {
+    border: 6px solid rgb(186, 186, 186);
+    background: url("../assets/bg2.png");
+    transform: rotateX(180deg);
+}
+#canvas-wrap {
+    position: relative;
+}
