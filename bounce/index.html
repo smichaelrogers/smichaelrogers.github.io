@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>bounce</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body onload="init();">
+    <div id="heading">
+        <h1>bounce</h1>
+    </div>
+    <div id="content-wrap">
+        <div id="content">
+            <canvas id="gameCanvas" width="900" height="480"></canvas>
+        </div>
+    </div>
+    <script src="lib/preloadjs-NEXT.min.js"></script>
+    <script src="lib/easeljs-NEXT.combined.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="js/ball.js"></script>
+    <script src="js/platform.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+var PLATFORM_HEIGHT = 10;
+var BALL_SIZE = 10;
+var ROWS = 100;
+var COLUMNS = 20;
+var ROW_HEIGHT = 400;
+var COLUMN_WIDTH = 200;
+var canvas;
+var w;
+var h;
+var stage;
+var world;
+var bg;
+var bgGradient;
+var grid;
+var worldWidth;
+var worldHeight;
+var platforms;
+var collisionTarget;
+var ball;
+var round;
+var difficulty;
+var distanceField;
+var messageField;
+var roundField;
+var jumpField;
+var jumpSubField;
+var gravityField;
+var jumpHeld;
+var diveHeld;
+var nextRound;
+var splash;
+var queue;
+var loadField;
+var loadingInterval = 0;
+
+document.onkeydown = handleKeyDown;
+document.onkeyup = handleKeyUp;
+document.onmousedown = handleKeyDown;
+document.onmouseup = handleKeyUp;
+
+function init() {
+    canvas = document.getElementById("gameCanvas");
+    w = canvas.scrollWidth;
+    h = canvas.scrollHeight;
+    stage = new createjs.Stage(canvas);
+    world = new createjs.Container();
+    stage.addChild(world);
+
+    loadField = new createjs.Text("Loading", "bold italic 24px 'Helvetica Neue'", "#949494");
+    loadField.scaleY = -1;
+    loadField.maxWidth = 1000;
+    loadField.textAlign = "center";
+    loadField.textBaseline = "middle";
+    loadField.x = w / 2;
+    loadField.y = h / 2;
+    stage.addChild(loadField);
+    stage.update();
+
+    queue = new createjs.LoadQueue();
+    queue.addEventListener("complete", handleComplete);
+    queue.addEventListener("progress", handleProgress);
+
+    queue.loadManifest([{
+        id: "splash",
+        src: "assets/splash.png"
+    }, {
+        id: "bg",
+        src: "assets/bg.png"
+    }]);
+}
+
+function handleProgress(event) {
+    loadField.text = "Loading\n" + (queue.progress * 100 | 0) + "%";
+    stage.update();
+}
+
+function handleComplete(event) {
+    clearInterval(loadingInterval);
+    stage.removeChild(loadField);
+
+    bg = new createjs.Container();
+    bgGradient = new createjs.Bitmap(queue.getResult("bg"));
+    bg.addChild(bgGradient);
+
+    splash = new createjs.Container();
+    var img = new createjs.Bitmap(queue.getResult("splash"));
+    splash.addChild(img);
+    splash.x = -30;
+    splash.y = h;
+
+    messageField = new createjs.Text("Click", "normal 14px 'Helvetica Neue'", "#ffffff");
+    messageField.textAlign = "left";
+    messageField.lineHeight = 24;
+    messageField.x = 220;
+    messageField.y = h - 12;
+    messageField.maxWidth = w;
+
+    roundField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#919191");
+    roundField.textAlign = "right";
+    roundField.x = w - 40;
+    roundField.y = h - 10;
+    roundField.maxWidth = 1000;
+
+    jumpField = new createjs.Text("0", "bold 48px 'Helvetica Neue'", "#ff004c");
+    jumpField.textAlign = "right";
+    jumpField.x = w - 40;
+    jumpField.y = 50;
+    jumpField.maxWidth = 1000;
+
+    jumpSubField = new createjs.Text("Jumps", "bold italic 10px 'Helvetica Neue'", "#b0b0b0");
+    jumpSubField.textAlign = "right";
+    jumpSubField.x = w - 40;
+    jumpSubField.y = 43;
+    jumpSubField.maxWidth = 1000;
+
+    gravityField = new createjs.Text("0", "italic 10px 'Helvetica Neue'", "#9f9f9f");
+    gravityField.textAlign = "right";
+    gravityField.x = w - 40;
+    gravityField.y = h - 30;
+    gravityField.maxWidth = 1000;
+
+    distanceField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#656565");
+    distanceField.textAlign = "right";
+    distanceField.x = w - 40;
+    distanceField.y = h - 45;
+    distanceField.maxWidth = 1000;
+
+    stage.addChild(splash, bg, messageField);
+    messageField.scaleY = -1;
+    bg.scaleY = -1;
+    splash.scaleY = -1;
+
+    stage.setChildIndex(world, 1);
+    stage.setChildIndex(messageField, 2);
+    stage.setChildIndex(splash, 4);
+    stage.setChildIndex(bg, 3);
+
+    messageField.text =
+        "↑ jump \n↓ bounce \n↑ weaker gravity, less platforms, slower jump regeneration \n↓ stronger gravity, more platforms, slower jump regeneration\n  a ball can jump whilst jumping\n  a ball would rather bounce than jump\n\n  reach the top to win\n  click to start";
+    stage.update();
+    canvas.onclick = handleClick;
+}
+
+function retry() {
+    if (createjs.Ticker.hasEventListener("tick")) {
+        createjs.Ticker.removeEventListener("tick", tick);
+    }
+    stage.addChild(loadField);
+    loadField.text = "Click";
+    stage.update();
+    canvas.onclick = restart;
+}
+
+function handleClick() {
+    canvas.onclick = null;
+    stage.removeChild(messageField, splash);
+    restart();
+}
+
+function restart() {
+    stage.removeChild(loadField);
+    world.removeAllChildren();
+    stage.setChildIndex(world, 1);
+    stage.setChildIndex(bg, 2);
+    difficulty = 8;
+    nextRound = 1000;
+    round = 1;
+    roundField.text = "";
+    distanceField.text = "";
+    jumpField.text = "";
+    jumpSubField.text = "jumps";
+    gravityField.text = "";
+    jumpHeld = false;
+    diveHeld = false;
+    setAssets();
+    if (!createjs.Ticker.hasEventListener("tick")) {
+        createjs.Ticker.addEventListener("tick", tick);
+    }
+    createjs.Ticker.setFPS(60);
+}
+
+function setAssets() {
+    stage.addChild(distanceField, roundField, jumpField, jumpSubField, gravityField);
+    roundField.scaleY = -1;
+    distanceField.scaleY = -1;
+    jumpField.scaleY = -1;
+    jumpSubField.scaleY = -1;
+    gravityField.scaleY = -1;
+    bg.x = 0;
+    bg.y = 2400;
+    world.x = 0;
+    world.y = 0;
+    var setPlatform = false;
+    var rn, p, startX, startY, gapX, gapY, pX, pY, addChance, totalChance;
+    grid = [];
+    platforms = [];
+    worldWidth = 0;
+    for (var x = 0; x <= COLUMNS; x++) {
+        grid[x] = [];
+        for (var y = 0; y <= ROWS; y++) {
+            if (Math.random() > 0.5) {
+                grid[x][y] = true;
+            } else {
+                grid[x][y] = false;
+            }
+        }
+    }
+    for (var x = 1; x <= COLUMNS; x++) {
+        addChance = 200;
+        totalChance = 100;
+        grid[x] = [];
+        rn = Math.random() * 100.0;
+        if (rn < 50.0) {
+            grid[x][0] = true;
+        } else {
+            grid[x][0] = false;
+        }
+        if (rn > 50.0) {
+            grid[x][ROWS + 1] = true;
+        } else {
+            grid[x][ROWS + 1] = false;
+        }
+        for (var y = 1; y <= ROWS; y++) {
+            grid[x][y] = true;
+            rn = Math.random() * totalChance;
+            if (grid[x][y - 1]) {
+                if (grid[x - 1][y - 1] && grid[x - 1][y] && grid[x - 1][y + 1]) {
+                    if (rn < addChance * 2.0) {
+                        grid[x][y] = false;
+                    }
+                } else {
+                    if (grid[x - 1][y - 1] && grid[x - 1][y]) {
+                        if (rn < addChance / 4) {
+                            grid[x][y] = false;
+                        }
+                    } else if (grid[x - 1][y] && grid[x - 1][y + 1]) {
+                        if (rn < addChance * 1.5) {
+                            grid[x][y] = false;
+                        }
+                    } else if (grid[x - 1][y - 1] && grid[x - 1][y + 1]) {
+                        if (rn < addChance / 2) {
+                            grid[x][y] = false;
+                        }
+                    } else if (grid[x - 1][y]) {
+                        if (rn < addChance / 4) {
+                            grid[x][y] = false;
+                        }
+                    }
+                }
+            } else if (rn > addChance) {
+                if (grid[x - 1][y - 1] && grid[x - 1][y] && grid[x - 1][y + 1]) {
+                    if (rn < addChance) {
+                        grid[x][y] = false;
+                    }
+                } else if (grid[x - 1][y] && grid[x - 1][y + 1]) {
+                    if (rn < addChance) {
+                        grid[x][y] = false;
+                    }
+                }
+            }
+            if (!grid[x][y]) {
+                startX = (x - 1) * COLUMN_WIDTH;
+                startY = (y - 1) * ROW_HEIGHT;
+                pX = (Math.pow(Math.random(), 2) * COLUMN_WIDTH) + (0.5 * COLUMN_WIDTH);
+                pY = (Math.random() * ROW_HEIGHT);
+                gapX = COLUMN_WIDTH - pX;
+                startX += gapX;
+                if (x % 2 === 0) {
+                    startY += pY;
+                } else {
+                    startY -= pY;
+                }
+                addChance *= 0.75;
+                p = new Platform(startX, startY, difficulty, 0, pX, PLATFORM_HEIGHT, x, y);
+                platforms.push(p);
+                world.addChild(p);
+            } else {}
+        }
+    }
+    worldWidth += COLUMN_WIDTH * COLUMNS;
+    worldHeight = ROW_HEIGHT * ROWS;
+    ball = new Ball(BALL_SIZE);
+    ball.x = 200;
+    ball.y = 200;
+    stage.clear();
+    stage.update();
+    // world.scaleX = 0.05;
+    // world.scaleY = 0.05;
+    world.addChild(ball);
+    if (createjs.Ticker.hasEventListener("tick")) {
+        createjs.Ticker.removeEventListener("tick", tick);
+    }
+}
+
+function tick(event) {
+    if (jumpHeld) {
+        ball.jump();
+    } else if (diveHeld) {
+        ball.dive();
+    } else {
+        ball.releaseJump();
+    }
+    worldY = (0.5 * h) - ball.y;
+    var diff = Math.abs(worldY - world.y);
+    if (diff > 20) {
+        if (world.y < worldY) {
+            bg.y += .5;
+            world.y += 10 * (diff / 80);
+        } else if (world.y >= worldY) {
+            bg.y -= .5;
+            world.y -= 10 * (diff / 80);
+        }
+    }
+    collisionTarget = null;
+    platforms.forEach(function(platform) {
+        platform.tick(event);
+        if (!collisionTarget && ball.t > 0.1) {
+            if (ball.x < platform.x + platform.sizeX + difficulty) {
+                if (ball.x > platform.x - difficulty - ball.size) {
+                    if (ball.y > platform.y + platform.sizeY) { // fall on
+                        if (ball.y + (ball.dY) < platform.y + platform.sizeY && ball.dY < 0) {
+                            collisionTarget = platform;
+                        }
+                    } else if (ball.y + ball.size < platform.y && ball.dY > 0) { // bounce into
+                        if (ball.y + ball.size + ball.dY > platform.y) {
+                            collisionTarget = platform;
+                        }
+                    } else if (ball.y - 10 < platform.y + platform.sizeY && ball.y > platform.y + platform.sizeY - 2) {
+                        collisionTarget = platform;
+                    }
+                }
+            }
+        }
+        if (platform.x < 0 - platform.sizeX) {
+            platform.reposition(worldWidth, difficulty);
+        }
+    });
+    if (collisionTarget) {
+        ball.hit(collisionTarget);
+    }
+    if (ball.y < -1000) {
+        retry();
+    }
+    nextRound -= 1;
+    if (nextRound % 100 === 0) {
+        ball.recognizeAltitude(worldHeight);
+    }
+
+    if (nextRound <= 0) {
+        round += 1;
+        nextRound = 1000;
+        increaseDifficulty();
+    }
+    roundField.text = "Round: " + round;
+    distanceField.text = Math.floor((worldHeight - ball.y) / 10) + "m to go";
+    jumpField.text = Array(ball.jumps + 1).join("▰");
+    gravityField.text = "Gravity: " + (ball.a * 10).toFixed(1);
+    ball.tick(event);
+    stage.update(event);
+}
+
+function increaseDifficulty() {
+    platforms.forEach(function(platform) {
+        platform.increaseSpeed();
+    });
+}
+
+function addPlatformSlope() {
+    platforms.forEach(function(platform) {
+        platform.vY = -1;
+    });
+}
+
+function removePlatformSlope() {
+    platforms.forEach(function(platform) {
+        platform.vY = 0;
+    });
+}
+
+function handleKeyDown(e) {
+    switch (e.keyCode) {
+        case 80:
+            if (createjs.Ticker.hasEventListener("tick")) {
+                createjs.Ticker.removeEventListener("tick", tick);
+            } else {
+                createjs.Ticker.addEventListener("tick", tick);
+            }
+            break;
+        case 87:
+            if (!jumpHeld) {
+                jumpHeld = true;
+                diveHeld = false;
+            }
+            break;
+        case 38:
+            if (!jumpHeld) {
+                jumpHeld = true;
+                diveHeld = false;
+            }
+            break;
+        case 83:
+            if (!diveHeld) {
+                diveHeld = true;
+                jumpHeld = false;
+            }
+            break;
+        case 40:
+            if (!diveHeld) {
+                diveHeld = true;
+                jumpHeld = false;
+            }
+            break;
+        default:
+            jumpHeld = false;
+            diveHeld = false;
+            break;
+    }
+}
+
+function handleKeyUp(e) {
+    jumpHeld = false;
+    diveHeld = false;
+}
+    </script>
+</body>
+
+</html>
