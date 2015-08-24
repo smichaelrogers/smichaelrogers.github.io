@@ -8,11 +8,10 @@ body {
     padding-top: 5px;
 }
 canvas {
-    border: 25px solid #7e7e7e;
-  background: rgb(241, 241, 241);
-    transform: rotateX(180deg);
+  border: 5px solid rgb(68, 68, 68);
+  background: rgb(222, 222, 222);
+  transform: rotateX(180deg);
 }
 #canvas-wrap {
     position: relative;
 }
-#content {}

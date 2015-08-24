@@ -97,12 +97,13 @@ textarea {
 
 
 body, html {
-  background: rgb(48, 48, 48);
-  color: rgb(254, 228, 184);
+  background: rgb(0,0,0);
+  color: rgb(255,255,255);
 }
 
-
-
+s1{
+  background: #FF004C;
+}
 
 
 

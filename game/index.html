@@ -10,7 +10,7 @@
 <body onload="init();">
     <div id="content-wrap">
         <div id="content">
-            <canvas id="gameCanvas" width="960" height="600"></canvas>
+            <canvas id="gameCanvas" width="800" height="500"></canvas>
         </div>
     </div>
     <script src="lib/preloadjs-NEXT.min.js"></script>
@@ -21,10 +21,10 @@
     <script>
 var PLATFORM_HEIGHT = 8;
 var BALL_SIZE = 12;
-var ROWS = 200;
+var ROWS = 100;
 var COLUMNS = 20;
-var ROW_HEIGHT = 360;
-var COLUMN_WIDTH = 1000;
+var ROW_HEIGHT = 400;
+var COLUMN_WIDTH = 360;
 var canvas;
 var w;
 var h;
@@ -248,14 +248,14 @@ function setAssets() {
                 }
             }
             if (!grid[x][y]) {
-                startX = x * COLUMN_WIDTH;
-                startY = y * ROW_HEIGHT;
-                pX = Math.random() * (COLUMN_WIDTH);
+                startX = (x-1) * COLUMN_WIDTH;
+                startY = (y-1) * ROW_HEIGHT;
+                pX = Math.random() * (COLUMN_WIDTH) * 2;
                 if(pX < .25 * COLUMN_WIDTH) {
-                  pX += 0.25 * COLUMN_WIDTH;
+                  pX += 150;
                 }
-                pY = Math.random() * (ROW_HEIGHT);
-                gapX = COLUMN_WIDTH - pX;
+                pY = Math.random() * ROW_HEIGHT;
+                gapX = Math.random() * COLUMN_WIDTH - pX * 0.5;
                 gapY = ROW_HEIGHT - pY;
                 if (x % 2 === 0) {
                     startX += gapX;
@@ -265,7 +265,7 @@ function setAssets() {
                     startY -= (gapY + ROW_HEIGHT);
                 }
                 addChance *= 0.9;
-                p = new Platform(startX, startY, difficulty, 0, pX + (.2* COLUMN_WIDTH), PLATFORM_HEIGHT, x, y);
+                p = new Platform(startX, startY, difficulty, 0, pX, PLATFORM_HEIGHT, x, y);
                 platforms.push(p);
                 world.addChild(p);
             } else {}
