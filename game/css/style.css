@@ -9,7 +9,7 @@ body {
     text-align: center;
 }
 canvas {
-  background: url("./assets/paper_fibers_@2x.png");
+  background: url("../assets/paper_fibers_@2x.png");
   transform: rotateX(180deg);
 }
 #canvas-wrap {
