@@ -55,17 +55,17 @@
 
 
 	p.assertSquishiness = function () {
-		if (this.scaleY < 0.95) {
-			this.scaleY += (Math.abs(1.0 - this.scaleY) / 12);
+		if (this.scaleY < 0.95 && this.scaleY > 0.8) {
+			this.scaleY += (Math.abs(1.0 - this.scaleY) / 16);
 		}
-		if (this.scaleY > 1.05) {
-			this.scaleY -= (Math.abs(1.0 - this.scaleY) / 6);
+		if (this.scaleY > 1.05 && this.scaleY < 1.3) {
+			this.scaleY -= (Math.abs(1.0 - this.scaleY) / 4);
 		}
-		if (this.scaleX < 0.95) {
-			this.scaleX += (Math.abs(1.0 - this.scaleX) / 12);
+		if (this.scaleX < 0.95 && this.scaleX > 0.8) {
+			this.scaleX += (Math.abs(1.0 - this.scaleX) / 16);
 		}
-		if (this.scaleX > 1.05) {
-			this.scaleX -= (Math.abs(1.0 - this.scaleX) / 10);
+		if (this.scaleX > 1.05 && this.scaleX < 1.3) {
+			this.scaleX -= (Math.abs(1.0 - this.scaleX) / 16);
 		}
 		this.idx = (this.idx + 1) % 3;
 		this.dYN[this.idx] = this.dY / 40;

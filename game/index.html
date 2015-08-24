@@ -259,12 +259,12 @@ function setAssets() {
                 gapY = ROW_HEIGHT - pY;
                 if (x % 2 === 0) {
                     startX += gapX;
-                    startY += (gapY + .8*ROW_HEIGHT);
+                    startY += (gapY + ROW_HEIGHT);
                 } else {
                     startX += gapX;
-                    startY -= (gapY + .8*ROW_HEIGHT);
+                    startY -= (gapY + ROW_HEIGHT);
                 }
-                addChance *= 0.85;
+                addChance *= 0.9;
                 p = new Platform(startX, startY, difficulty, 0, pX + (.2* COLUMN_WIDTH), PLATFORM_HEIGHT, x, y);
                 platforms.push(p);
                 world.addChild(p);
