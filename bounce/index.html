@@ -3,31 +3,35 @@
 
 <head>
     <meta charset="utf-8">
-    <title>bounce</title>
+    <title>bounce, a javascript browser game</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body onload="init();">
     <div id="heading">
-        <h1>bounce</h1>
+        <h1>bounce<span>a physics based javascript browser game</span></h1>
     </div>
     <div id="content-wrap">
         <div id="content">
-            <canvas id="gameCanvas" width="900" height="480"></canvas>
+            <canvas id="gameCanvas" width="900" height="500"></canvas>
         </div>
+    </div>
+    <div id="footer">
+      <span>by scott rogers 2015</span>
     </div>
     <script src="lib/preloadjs-NEXT.min.js"></script>
     <script src="lib/easeljs-NEXT.combined.js"></script>
-    <script src="lib/jquery.min.js"></script>
     <script src="js/ball.js"></script>
     <script src="js/platform.js"></script>
-    <script src="js/main.js"></script>
     <script>
 var PLATFORM_HEIGHT = 10;
 var BALL_SIZE = 10;
 var ROWS = 100;
 var COLUMNS = 20;
-var ROW_HEIGHT = 400;
+var ROW_HEIGHT = 480;
 var COLUMN_WIDTH = 200;
 var canvas;
 var w;
@@ -118,37 +122,31 @@ function handleComplete(event) {
     messageField.lineHeight = 24;
     messageField.x = 220;
     messageField.y = h - 12;
-    messageField.maxWidth = w;
 
     roundField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#919191");
     roundField.textAlign = "right";
     roundField.x = w - 40;
     roundField.y = h - 10;
-    roundField.maxWidth = 1000;
 
-    jumpField = new createjs.Text("0", "bold 48px 'Helvetica Neue'", "#ff004c");
+    jumpField = new createjs.Text("0", "bold 64px 'Helvetica Neue'", "#ff004c");
     jumpField.textAlign = "right";
     jumpField.x = w - 40;
-    jumpField.y = 50;
-    jumpField.maxWidth = 1000;
+    jumpField.y = 60;
 
-    jumpSubField = new createjs.Text("Jumps", "bold italic 10px 'Helvetica Neue'", "#b0b0b0");
+    jumpSubField = new createjs.Text("Jumps", "bold italic 12px 'Helvetica Neue'", "#b0b0b0");
     jumpSubField.textAlign = "right";
-    jumpSubField.x = w - 40;
-    jumpSubField.y = 43;
-    jumpSubField.maxWidth = 1000;
+    jumpSubField.x = w - 50;
+    jumpSubField.y = 50;
 
     gravityField = new createjs.Text("0", "italic 10px 'Helvetica Neue'", "#9f9f9f");
     gravityField.textAlign = "right";
     gravityField.x = w - 40;
     gravityField.y = h - 30;
-    gravityField.maxWidth = 1000;
 
     distanceField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#656565");
     distanceField.textAlign = "right";
     distanceField.x = w - 40;
     distanceField.y = h - 45;
-    distanceField.maxWidth = 1000;
 
     stage.addChild(splash, bg, messageField);
     messageField.scaleY = -1;
@@ -187,7 +185,7 @@ function restart() {
     world.removeAllChildren();
     stage.setChildIndex(world, 1);
     stage.setChildIndex(bg, 2);
-    difficulty = 8;
+    difficulty = 10;
     nextRound = 1000;
     round = 1;
     roundField.text = "";
@@ -212,7 +210,7 @@ function setAssets() {
     jumpSubField.scaleY = -1;
     gravityField.scaleY = -1;
     bg.x = 0;
-    bg.y = 2400;
+    bg.y = 2800;
     world.x = 0;
     world.y = 0;
     var setPlatform = false;
@@ -250,7 +248,7 @@ function setAssets() {
             rn = Math.random() * totalChance;
             if (grid[x][y - 1]) {
                 if (grid[x - 1][y - 1] && grid[x - 1][y] && grid[x - 1][y + 1]) {
-                    if (rn < addChance * 2.0) {
+                    if (rn < addChance * 8.0) {
                         grid[x][y] = false;
                     }
                 } else {
@@ -259,15 +257,11 @@ function setAssets() {
                             grid[x][y] = false;
                         }
                     } else if (grid[x - 1][y] && grid[x - 1][y + 1]) {
-                        if (rn < addChance * 1.5) {
+                        if (rn < addChance * 2.0) {
                             grid[x][y] = false;
                         }
                     } else if (grid[x - 1][y - 1] && grid[x - 1][y + 1]) {
                         if (rn < addChance / 2) {
-                            grid[x][y] = false;
-                        }
-                    } else if (grid[x - 1][y]) {
-                        if (rn < addChance / 4) {
                             grid[x][y] = false;
                         }
                     }
@@ -295,7 +289,7 @@ function setAssets() {
                 } else {
                     startY -= pY;
                 }
-                addChance *= 0.75;
+                addChance *= 0.80;
                 p = new Platform(startX, startY, difficulty, 0, pX, PLATFORM_HEIGHT, x, y);
                 platforms.push(p);
                 world.addChild(p);
@@ -309,8 +303,6 @@ function setAssets() {
     ball.y = 200;
     stage.clear();
     stage.update();
-    // world.scaleX = 0.05;
-    // world.scaleY = 0.05;
     world.addChild(ball);
     if (createjs.Ticker.hasEventListener("tick")) {
         createjs.Ticker.removeEventListener("tick", tick);

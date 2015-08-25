@@ -1,6 +1,12 @@
 (function (window) {
+	var JUMP_VELOCITY = 13.0;
+	var DIVE_VELOCITY = -32.0;
+	var START_GRAVITY = -0.7;
+	var MAX_JUMPS = 5;
+
 	function Ball(size) {
 		this.Container_constructor();
+
 		this.size = size;
 		this.ball = new createjs.Shape();
 		this.addChild(this.ball);
@@ -10,11 +16,11 @@
 			.beginRadialGradientFill(["rgb(255, 255, 255)", "rgba(255, 0, 84, 1)"], [0, 1], this.size / 2, this.size * 1.33, 0, this.size / 3, this.size * 1.33, this.size / 2)
 			.drawCircle(this.size / 2, this.size, this.size);
 		this.jumpReleased = true;
-		this.jumps = 5;
-		this.a = -0.7;
+		this.jumps = MAX_JUMPS;
+		this.a = START_GRAVITY;
 		this.dY = 0.0;
 		this.t = 0.0;
-		this.v0 = 16.0;
+		this.v0 = JUMP_VELOCITY;
 		this.y0 = 500.0;
 		this.diving = false;
 		this.dYN = [1, 1, 1];
@@ -25,6 +31,8 @@
 	}
 
 	var p = createjs.extend(Ball, createjs.Container);
+	var sum;
+
 	p.ball;
 	p.a;
 	p.t;
@@ -33,26 +41,24 @@
 	p.dY;
 	p.jumps;
 	p.jumpReleased;
-	var sum;
 
 	p.recognizeAltitude = function (worldY) {
-		this.a = -0.7 + (Math.abs(this.y) / (worldY * 3));
+		this.a = START_GRAVITY + (Math.abs(this.y) / (worldY * 3));
 	}
 
 	p.tick = function (event) {
 		this.assertSquishiness();
 		this.t += 1.0;
 		this.jumpTimer += 1.0;
-		if (this.jumpTimer >= 24 + ((this.a + 1) * 100) && this.jumps < 5) {
+		if (this.jumpTimer >= 16 + ((this.a + 1) * 80) && this.jumps < 5) {
 			this.jumps++;
-			console.log(((this.a + 1) * 40));
+			console.log(16 + ((this.a + 1) * 80));
 			this.jumpTimer = 0;
 		}
 		var n = (0.5 * this.a * Math.pow(this.t, 2)) + (this.v0 * this.t) + this.y0;
 		this.dY = n - this.y;
 		this.y = n;
 	}
-
 
 	p.assertSquishiness = function () {
 		if (this.scaleY < 0.95 && this.scaleY > 0.8) {
@@ -78,7 +84,6 @@
 		this.scaleY = 1.0 - (this.squish / 2);
 	}
 
-
 	p.hit = function (platform) {
 		this.diving = false;
 		if (this.dY < 0) {
@@ -94,7 +99,7 @@
 
 	p.jump = function () {
 		if (this.jumpReleased && this.jumps > 0 && !this.diving && (this.t > 0.15 || Math.abs(this.squish) < 0.01)) {
-			this.v0 = 16.0;
+			this.v0 = JUMP_VELOCITY;
 			this.t = 0.0;
 			this.jumpTimer = 0;
 			this.y0 = this.y;
@@ -104,9 +109,9 @@
 	}
 
 	p.dive = function () {
-		if (!this.diving && this.jumpReleased & this.t > 1) {
+		if (!this.diving && this.jumpReleased & this.t > 10) {
 			this.t = 0.5;
-			this.v0 = -36.0;
+			this.v0 = DIVE_VELOCITY;
 			this.y0 = this.y + 60;
 			this.jumpReleased = false;
 			this.diving = true;
@@ -116,6 +121,6 @@
 	p.releaseJump = function () {
 		this.jumpReleased = true;
 	}
-	window.Ball = createjs.promote(Ball, "Container");
 
+	window.Ball = createjs.promote(Ball, "Container");
 }(window));

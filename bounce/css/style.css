@@ -7,26 +7,33 @@ html, body {
     background: rgb(255, 255, 255);
 }
 #heading {
-  width: 900px;
-  margin: 0 auto;
-  display: block;
+    width: 900px;
+    margin: 0 auto;
+    display: block;
+    padding: 0;
 }
 h1 {
-  font-family: "Quicksand";
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 48px;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-
-  color: rgb(186, 186, 186);
+    font-family: "Quicksand";
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    margin: 0;
+    padding: 6px 6px 0 6px;
+    text-align: left;
+    color: rgb(150, 150, 150);
+}
+span {
+    font-family: "Quicksand";
+    font-weight: 400;
+    font-size: 14px;
+    padding: 10px;
+    color: rgb(150, 150, 150);
 }
 body {
     text-align: center;
 }
 canvas {
-    border: 6px solid rgb(186, 186, 186);
+    border: 3px solid rgb(150, 150, 150);
     background: url("../assets/bg2.png");
     transform: rotateX(180deg);
 }
