@@ -1,0 +1,256 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900italic,700italic,500italic,400italic,300italic,100italic,900,700,500,300,100|Roboto+Condensed:400,700italic,400italic,300italic,700,300|Roboto+Slab:400,700,300,100);
+body, html {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", "Helvetica Neue", "Proxima Nova", "Lato", "Open Sans", "Helvetica", "Arial", sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+* * {
+    box-sizing: border-box;
+    /*border: 1px solid rgba(0, 0, 0, 0.4) !important;*/
+    /*background: rgba(0, 0, 0, 0.32);*/
+}
+
+/*#ffffff
+#ff606e
+#00ddd8
+#517398
+#262c3a*/
+
+#wrapper {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#header {
+    background: #ededed;
+    color: #000000;
+}
+#skills {
+    background: #517398;
+    color: #ffffff;
+}
+#projects {
+    background: #ffffff;
+    color: #000000;
+}
+#info {
+    background: #517398;
+    color: #ffffff;
+}
+a, a:active, a:visited, a:focus {
+    color: #ff606e;
+    text-decoration: none;
+    transition: color .1s ease-in-out;
+}
+a:hover {
+    color: rgb(68, 68, 68);
+}
+section, header, footer {
+    display: block;
+    margin: 0;
+    padding: 24px;
+    box-sizing: border-box;
+}
+div, span, main, ul, li, img, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+span, h1, h2, h3, h4, h5, h6, ul, li {
+    display: block;
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+ul {
+    list-style: none;
+}
+ul:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+li {
+    list-style: none;
+}
+.page-section {
+    width: 100%;
+    display: block;
+    float: left;
+    padding: 100px;
+}
+.section-wrap {
+    display: block;
+    width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+.section-content {
+    display: block;
+    float: left;
+    width: 100%;
+}
+.section-title, .name, .description {
+    width: 100%;
+    font-weight: 100;
+    display: block;
+    float: left;
+}
+.section-title {
+    font-size: 36px;
+}
+#header {
+    padding: 0;
+    height: 100%;
+}
+.name {
+    font-size: 64px;
+    letter-spacing: -1.5px;
+    padding: 0;
+}
+.profession {
+    color: rgb(121, 121, 121);
+    font-size: 16px;
+    padding: 0;
+    font-weight: 300;
+    margin: 0px 0 36px 0;
+}
+.ext-links {
+    display: block;
+    float: left;
+    width: 100%;
+}
+.ext-links a {
+    display: block;
+    float: left;
+    padding: 32px 24px 0 0;
+}
+#skills ul, .project-resources, #skills li, .project-resources li {
+    display: block;
+    float: left;
+}
+#skills ul {
+    letter-spacing: 0.5px;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+#skills li {
+    padding: 4px;
+}
+#skills li, .project-resources li {
+    text-transform: lowercase;
+    font-family: "Roboto Condensed", "Open Sans Condensed", "Helvetica Neue", "Proxima Nova", "Helvetica", "Arial", sans-serif;
+}
+#skills li:nth-child(even), .project-resources li:nth-child(even) {
+    font-weight: 700;
+}
+#skills li:nth-child(odd), .project-resources li:nth-child(odd) {
+    font-weight: 300;
+}
+.project {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 24px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+.project-left {
+    width: 50%;
+    display: block;
+    float: left;
+    padding: 12px;
+}
+.project-left h2 {
+    display: block;
+    float: left;
+    font-size: 20px;
+    font-weight: 700;
+}
+.project-links {
+    padding: 3px 0 0 12px;
+    display: block;
+    float: left;
+}
+.project-links a {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 10px;
+    padding: 0px 12px 0 0;
+}
+.project-resources li {
+    padding: 0 2px;
+    display: block;
+    float: left;
+}
+.project-resources {
+    font-size: 12px;
+    width: 100%;
+    color: rgb(117, 117, 117);
+    letter-spacing: 0.5px;
+    display: block;
+    float: left;
+    padding-bottom: 8px;
+}
+.project-left > span {
+    padding: 24px 24px 12px 0;
+    display: block;
+    width: 100%;
+    float: left;
+    max-height: 320px;
+    overflow: hidden;
+    border-right: 1px solid #eeeeee;
+}
+.project-left p {
+    display: block;
+    width: 100%;
+    float: left;
+    padding-right: 12px;
+}
+.project-left > span img, .project-right > span img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.project-right {
+    display: block;
+    float: right;
+    width: 50%;
+    padding: 0 12px;
+}
+.project-logo {
+    display: block;
+    float: left;
+    width: 100%;
+}
+a.project-logo img {
+    width: 240px;
+    height: auto;
+    display: block;
+}
+.project-right h3 {
+    display: block;
+    width: 100%;
+    padding: 0px 12px;
+    float: left;
+    font-size: 18px;
+    font-family: "Roboto Condensed";
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.project-bullets {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 6px 24px 12px 12px;
+}
+.project-bullets li {
+    width: 100%;
+    padding: 3px 0;
+    font-size: 12px;
+    max-width: 70%;
+}

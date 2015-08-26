@@ -7,36 +7,226 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <script src="js/vendor/jquery.min.js"></script>
 </head>
 
 <body>
     <main id="wrapper">
-        <header class="">
-
+        <header class="page-section" id="header">
+            <div class="section-wrap">
+              <div class="section-content" id="spacing-top">
+                
+              </div>
+                <div class="section-content clearfix">
+                    <span class="name">
+                        Scott Rogers</span>
+                    <span class="profession">web developer and designer</span>
+                    <span class="ext-links"><a href="https://github.com/smichaelrogers?tab=repositories" target="_blank"><i class="fa fa-github fa-2x"></i></a><a href="https://www.linkedin.com/pub/scott-rogers/102/631/208" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a></span>
+                </div>
+            </div>
         </header>
+        <section class="page-section" id="skills">
+            <div class="section-wrap">
+                <div class="section-content clearfix">
+                    <span class="section-title">Skills</span>
+                    <ul>
+                        <li> JavaScript</li>
+                        <li> Ruby</li>
+                        <li> Ruby on Rails</li>
+                        <li> Backbone.js</li>
+                        <li> Ember.js</li>
+                        <li> ReactJS</li>
+                        <li> HTML5</li>
+                        <li> SQL</li>
+                        <li> git</li>
+                        <li> GFX</li>
+                        <li> CSS3</li>
+                        <li> LESS</li>
+                        <li> SCSS</li>
+                        <li> SASS</li>
+                        <li> jQuery</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="page-section" id="projects">
+            <div class="section-wrap">
+                <div class="section-content clearfix">
+                    <span class="section-title">Projects</span>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>Pollrbear</h2>
+                            <div class="project-links">
+                                <a href="https://github.com/smichaelrogers/pollrbear" target="_blank"> <i class="fa fa-github"></i> github</a>
+                                <a href="http://www.pollrbear.com" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>Ruby on Rails</li>
+                                <li>JavaScript</li>
+                                <li>Ruby</li>
+                                <li>Backbone.js</li>
+                                <li>jQuery</li>
+                                <li>SQL</li>
+                                <li>GFX</li>
+                                <li>SCSS</li>
+                            </ul>
+                            <p> Live audience participation single page social media app built on Backbone.js and a RESTful JSON Rails API </p>
+                            <span>
+                                <img src="img/pbscreen.png"> </span>
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://www.pollrbear.com" target="_blank">
+                                <img src="img/logos/pb1.png"> </a>
+                            <h3>Features</h3>
+                            <ul class="project-bullets">
+                                <li>Single page app</li>
+                                <li>RESTful JSON Ruby on Rails API</li>
+                                <li>OAuth authentication through Twitter</li>
+                                <li>BCrypt encryted authentication for standard login</li>
+                                <li>Visualization of data in charts and word clouds rendered with Javascript and CSS3</li>
+                                <li>Analysis of trends and statistics, specialized SQL queries to locate trending polls</li>
+                                <li>Minimal, bright and efficient UX</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>bounce</h2>
+                            <div class="project-links">
+                                <a href="https://github.com/smichaelrogers/bounce" target="_blank"> <i class="fa fa-github"></i> github</a>
+                                <a href="http://smichaelrogers.github.io/bounce/index.html" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>JavaScript</li>
+                                <li>HTML5</li>
+                                <li>GFX</li>
+                                <li>CSS3</li>
+                            </ul>
+                            <p> Side scrolling, procedurally generated platformer game with a scratch-made 2D physics engine </p>
+                            <span>
+                                <img src="img/bouncescreen.png"> </span>
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://smichaelrogers.github.io/bounce/index.html" target="_blank">
+                                <img src="img/logos/bounce.png"> </a>
+                            <h3>Features</h3>
+                            <ul class="project-bullets">
+                                <li>Layers of structured randomization ensure each level to be unique and competitive</li>
+                                <li>Responds to inertia and relative gravity</li>
+                                <li>Predictive collision detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>Chess</h2>
+                            <div class="project-links">
+                                <a href="https://github.com/smichaelrogers/chess" target="_blank"> <i class="fa fa-github"></i> github</a>
+                                <a href="http://smichaelrogers.github.io/chess/index.html" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>Ruby</li>
+                            </ul>
+                            <p> Classic Chess game written in Ruby </p>
+                            <span>
+                                <img src="http://placehold.it/720x480"> </span>
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://smichaelrogers.github.io/chess/index.html" target="_blank">
+                                <img src="img/logos/chess1.png"> </a>
+                            <h3>Features</h3>
+                            <ul class="project-bullets">
+                                <li>content</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>Interior Resources</h2>
+                            <div class="project-links">
+                                <a href="http://www.interiorresourcesllc.com" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>jQuery</li>
+                                <li>HTML5</li>
+                                <li>CSS3</li>
+                                <li>PHP</li>
+                            </ul>
+                            <p> Website for manufacturer's representative firm specialized in commercial interiors </p>
+
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://www.interiorresourcesllc.com" target="_blank">
+                                <img src="img/logos/irllc1.png"> </a>
+
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>Trouvé.io</h2>
+                            <div class="project-links">
+                                <a href="http://www.trouve.io" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>JavaScript</li>
+                                <li>jQuery</li>
+                                <li>HTML5</li>
+                                <li>CSS3</li>
+                                <li>PHP</li>
+                            </ul>
+                            <p> Website for a service connecting companies with social media marketing agencies </p>
+
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://www.trouve.io" target="_blank">
+                                <img src="img/logos/trouve1.png"> </a>
+
+                        </div>
+                    </div>
+                    <div class="project">
+                        <div class="project-left">
+                            <h2>Seriffic.com</h2>
+                            <div class="project-links">
+                                <a href="http://www.seriffic.com" target="_blank"> <i class="fa fa-external-link"></i> live</a>
+                            </div>
+                            <ul class="project-resources">
+                                <li>Ruby on Rails</li>
+                                <li>JavaScript</li>
+                                <li>Ruby</li>
+                                <li>jQuery</li>
+                                <li>HTML5</li>
+                                <li>CSS3</li>
+                            </ul>
+                            <p> Design tool for choosing from Google Web Fonts </p>
+
+                        </div>
+                        <div class="project-right">
+                            <a class="project-logo" href="http://www.seriffic.com" target="_blank">
+                                <img src="img/logos/seriffic1.png"> </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section" id="info">
+            <div class="section-wrap">
+                <div class="section-content clearfix">
+                    <span class="section-title">Relevant information on Mr. Rogers</span>
+                </div>
+            </div>
+        </section>
+        <footer class="page-section" id="footer">
+            <div class="section-wrap">
+                <div class="section-content clearfix">footer </div>
+            </div>
+        </footer>
     </main>
-    <a href="bounce/index.html">game</a>
     <script src="js/main.js"></script>
 </body>
 
