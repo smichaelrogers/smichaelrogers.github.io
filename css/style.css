@@ -165,7 +165,7 @@ li {
     width: 60%;
     display: block;
     float: left;
-    padding: 24px;
+    padding: 24px 36px;
     background: rgb(240, 240, 240);
 }
 .project-left h2 {
