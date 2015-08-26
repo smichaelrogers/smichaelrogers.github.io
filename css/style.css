@@ -139,7 +139,7 @@ li {
     width: 100%;
     color: rgb(255, 255, 255);
     font-size: 18px;
-    padding-right: 40%;
+    padding-right: 0;
 }
 #skills li {
     padding: 6px 12px 6px 0;
@@ -158,23 +158,26 @@ li {
     display: block;
     float: left;
     width: 100%;
-    padding: 24px 0;
+    padding: 48px 0;
 }
 .project-left {
     width: 100%;
     display: block;
     float: left;
-    padding: 24px;
+    padding: 36px 36px 24px 36px;
     background: rgb(240, 240, 240);
 }
 .project-right {
     display: block;
     float: right;
     width: 100%;
-    padding: 0 24px 24px 24px;
+    padding: 24px 24px 24px 24px;
     border-bottom: 1px solid rgb(228, 228, 228);
 }
 @media (min-width: 768px) {
+    #skills ul {
+        padding-right: 40% !important;
+    }
     .section-wrap {
         width: 900px !important;
     }
