@@ -11,9 +11,9 @@
 
 <body onload="init();">
     <div id="heading">
-        <h1>bounce
-            <span>a physics based javascript browser game</span>
-        </h1>
+        <span>
+            <img src="assets/bounce.png"> </span>
+        <span class="text">a physics based browser game written in javascript</span>
     </div>
     <div id="content-wrap">
         <div id="content">
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div id="footer">
-        <span>by scott rogers 2015</span>
+        <span>scott rogers 2015</span>
     </div>
     <script src="lib/preloadjs-NEXT.min.js"></script>
     <script src="lib/easeljs-NEXT.combined.js"></script>
@@ -74,7 +74,7 @@ function init() {
     stage = new createjs.Stage(canvas);
     world = new createjs.Container();
     stage.addChild(world);
-    loadField = new createjs.Text("Loading", "bold italic 24px 'Helvetica Neue'", "#949494");
+    loadField = new createjs.Text("Loading", "bold italic 32px 'Helvetica Neue'", "#ff005c");
     loadField.scaleY = -1;
     loadField.maxWidth = 1000;
     loadField.textAlign = "center";
@@ -111,16 +111,16 @@ function handleComplete(event) {
     splash.addChild(img);
     splash.x = -30;
     splash.y = h;
-    messageField = new createjs.Text("Click", "normal 14px 'Helvetica Neue'", "#ffffff");
+    messageField = new createjs.Text("Click", "normal 14px 'Helvetica Neue'", "#7e7e7e");
     messageField.textAlign = "left";
     messageField.lineHeight = 24;
-    messageField.x = 220;
-    messageField.y = h - 12;
-    roundField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#919191");
+    messageField.x = 20;
+    messageField.y = h - 20;
+    roundField = new createjs.Text("0", "bold italic 20px 'Helvetica Neue'", "#919191");
     roundField.textAlign = "right";
     roundField.x = w - 40;
     roundField.y = h - 10;
-    jumpField = new createjs.Text("0", "bold 64px 'Helvetica Neue'", "#ff004c");
+    jumpField = new createjs.Text("0", "bold 64px 'Helvetica Neue'", "#ff005c");
     jumpField.textAlign = "right";
     jumpField.x = w - 40;
     jumpField.y = 60;
@@ -128,14 +128,14 @@ function handleComplete(event) {
     jumpSubField.textAlign = "right";
     jumpSubField.x = w - 50;
     jumpSubField.y = 50;
-    gravityField = new createjs.Text("0", "italic 10px 'Helvetica Neue'", "#9f9f9f");
+    gravityField = new createjs.Text("0", "italic 12px 'Helvetica Neue'", "#adadad");
     gravityField.textAlign = "right";
     gravityField.x = w - 40;
-    gravityField.y = h - 30;
-    distanceField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#656565");
+    gravityField.y = h - 36;
+    distanceField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#7e7e7e");
     distanceField.textAlign = "right";
     distanceField.x = w - 40;
-    distanceField.y = h - 45;
+    distanceField.y = h - 50;
     stage.addChild(splash, bg, messageField);
     messageField.scaleY = -1;
     bg.scaleY = -1;
@@ -145,8 +145,10 @@ function handleComplete(event) {
     stage.setChildIndex(splash, 4);
     stage.setChildIndex(bg, 3);
     messageField.text =
-        "↑ jump \n↓ bounce \n↑ weaker gravity, less platforms, slower jump regeneration \n↓ stronger gravity, more platforms, slower jump regeneration\n  a ball can jump whilst jumping\n  a ball would rather bounce than jump\n\n  reach the top to win\n  click to start";
+        "\n↑ / w  -  jump\n↓ / s  -  dive\n\njumps are limited, dives are not\n\nhigher altitude = less gravity, fewer platforms, jumps replenish slower\nlower altitude = more gravity, more platforms, jumps replenish faster\n\ngain the most height by diving and bouncing, while using jumps to maneuver\n\nreach the top to win\n\n\npress any key to begin";
     stage.update();
+    document.onkeydown = handleClick;
+    document.onkeyup = handleClick;
     canvas.onclick = handleClick;
 }
 
@@ -155,9 +157,13 @@ function retry() {
         createjs.Ticker.removeEventListener("tick", tick);
     }
     stage.addChild(loadField);
-    loadField.text = "Click";
+    loadField.text = "press any key to retry";
     stage.update();
-    canvas.onclick = restart;
+    window.setTimeout(function() {
+      document.onkeydown = restart;
+      document.onkeyup = restart;
+      canvas.onclick = restart;
+    }, 600);
 }
 
 function handleClick() {
@@ -167,25 +173,48 @@ function handleClick() {
 }
 
 function restart() {
-    stage.removeChild(loadField);
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
+    canvas.onclick = null;
+    loadField.text = "";
     world.removeAllChildren();
-    stage.setChildIndex(world, 1);
-    stage.setChildIndex(bg, 2);
+    stage.setChildIndex(loadField, 1);
+    stage.setChildIndex(world, 2);
+    stage.setChildIndex(bg, 3);
     difficulty = 10;
     nextRound = 1000;
     round = 1;
-    roundField.text = "";
-    distanceField.text = "";
-    jumpField.text = "";
+    roundField.text = "Round 1";
+    distanceField.text = "4800m to go";
+    jumpField.text = "▰▰▰▰▰";
     jumpSubField.text = "jumps";
-    gravityField.text = "";
+    gravityField.text = "Gravity: -7.0";
     jumpHeld = false;
     diveHeld = false;
     setAssets();
-    if (!createjs.Ticker.hasEventListener("tick")) {
-        createjs.Ticker.addEventListener("tick", tick);
-    }
-    createjs.Ticker.setFPS(60);
+    loadField.text = "3";
+    stage.addChild(loadField);
+    stage.update();
+    window.setTimeout(function() {
+        loadField.text = "2";
+        stage.update();
+        window.setTimeout(function() {
+            loadField.text = "1";
+            stage.update();
+            window.setTimeout(function() {
+                loadField.text = "bounce";
+                stage.update();
+                window.setTimeout(function() {
+                    stage.removeChild(loadField);
+                    stage.update();
+                    if (!createjs.Ticker.hasEventListener("tick")) {
+                        createjs.Ticker.addEventListener("tick", tick);
+                    }
+                    createjs.Ticker.setFPS(60);
+                }, 500);
+            }, 500);
+        }, 500);
+    }, 500);
 }
 
 function setAssets() {
@@ -286,7 +315,7 @@ function setAssets() {
     worldHeight = ROW_HEIGHT * ROWS;
     ball = new Ball(BALL_SIZE);
     ball.x = 200;
-    ball.y = 200;
+    ball.y = 300;
     stage.clear();
     stage.update();
     world.addChild(ball);
@@ -353,7 +382,7 @@ function tick(event) {
         nextRound = 1000;
         increaseDifficulty();
     }
-    roundField.text = "Round: " + round;
+    roundField.text = "Round " + round;
     distanceField.text = Math.floor((worldHeight - ball.y) / 10) + "m to go";
     jumpField.text = Array(ball.jumps + 1).join("▰");
     gravityField.text = "Gravity: " + (ball.a * 10).toFixed(1);

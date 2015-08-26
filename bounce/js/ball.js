@@ -20,7 +20,7 @@
 		this.dY = 0.0;
 		this.t = 0.0;
 		this.v0 = JUMP_VELOCITY;
-		this.y0 = 500.0;
+		this.y0 = 300.0;
 		this.diving = false;
 		this.dYN = [1, 1, 1];
 		this.idx = 0;
@@ -108,7 +108,7 @@
 	}
 
 	p.dive = function () {
-		if (!this.diving && this.jumpReleased & this.t > 10) {
+		if (!this.diving && this.jumpReleased && this.t > 1) {
 			this.t = 0.5;
 			this.v0 = DIVE_VELOCITY;
 			this.y0 = this.y + 60;
