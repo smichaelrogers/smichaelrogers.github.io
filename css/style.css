@@ -8,7 +8,7 @@ body, html {
     font-size: 16px;
 }
 body {
-  transition: opacity 0.7s ease-in-out;
+    transition: opacity 0.7s ease-in-out;
 }
 * * {
     box-sizing: border-box;
@@ -83,11 +83,11 @@ li {
     width: 100%;
     display: block;
     float: left;
-    padding: 100px;
+    padding: 120px 50px;
 }
 .section-wrap {
     display: block;
-    width: 900px;
+    width: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -106,7 +106,6 @@ li {
     font-size: 36px;
 }
 #header {
-    padding: 0;
     height: 100%;
 }
 .name {
@@ -162,11 +161,32 @@ li {
     padding: 24px 0;
 }
 .project-left {
-    width: 60%;
+    width: 100%;
     display: block;
     float: left;
-    padding: 24px 36px;
+    padding: 24px;
     background: rgb(240, 240, 240);
+}
+.project-right {
+    display: block;
+    float: right;
+    width: 100%;
+    padding: 0 24px 24px 24px;
+    border-bottom: 1px solid rgb(228, 228, 228);
+}
+@media (min-width: 768px) {
+    .section-wrap {
+        width: 900px !important;
+    }
+    .project-left {
+        width: 60% !important;
+        float: left !important;
+    }
+    .project-right {
+        width: 40% !important;
+        float: right !important;
+        border: none !important;
+    }
 }
 .project-left h2 {
     display: block;
@@ -220,12 +240,6 @@ li {
     width: 100%;
     height: auto;
     display: block;
-}
-.project-right {
-    display: block;
-    float: right;
-    width: 40%;
-    padding: 0 24px;
 }
 .project-logo {
     display: block;
