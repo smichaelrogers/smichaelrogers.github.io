@@ -136,13 +136,14 @@ li {
     float: left;
 }
 #skills ul {
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     width: 100%;
     color: rgb(255, 255, 255);
-    font-size: 20px;
+    font-size: 18px;
+    padding-right: 40%;
 }
 #skills li {
-    padding: 4px;
+    padding: 6px 12px 6px 0;
 }
 #skills li, .project-resources li {
     text-transform: lowercase;
@@ -159,13 +160,13 @@ li {
     float: left;
     width: 100%;
     padding: 24px 0;
-    border-bottom: 1px solid #eeeeee;
 }
 .project-left {
-    width: 50%;
+    width: 60%;
     display: block;
     float: left;
-    padding: 12px;
+    padding: 24px;
+    background: rgb(240, 240, 240);
 }
 .project-left h2 {
     display: block;
@@ -200,21 +201,22 @@ li {
     padding-bottom: 8px;
 }
 .project-left > span {
-    padding: 24px 24px 12px 0;
+    border: 2px solid rgb(41, 41, 41);
     display: block;
     width: 100%;
     float: left;
     max-height: 320px;
+    margin: 12px 0;
     overflow: hidden;
-    border-right: 1px solid #eeeeee;
 }
 .project-left p {
     display: block;
     width: 100%;
     float: left;
     padding-right: 12px;
+    margin-bottom: 12px;
 }
-.project-left > span img, .project-right > span img {
+.project-left > span img {
     width: 100%;
     height: auto;
     display: block;
@@ -222,8 +224,8 @@ li {
 .project-right {
     display: block;
     float: right;
-    width: 50%;
-    padding: 0 12px;
+    width: 40%;
+    padding: 0 24px;
 }
 .project-logo {
     display: block;
@@ -249,11 +251,10 @@ a.project-logo img {
     display: block;
     float: left;
     width: 100%;
-    padding: 6px 24px 12px 12px;
+    padding: 6px 12px 12px 12px;
 }
 .project-bullets li {
     width: 100%;
-    padding: 3px 0;
+    padding: 6px 0;
     font-size: 12px;
-    max-width: 70%;
 }
