@@ -7,12 +7,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-    <link href="css/style.css" rel="stylesheet">
-</head>
+    <link href="css/style.css" rel="stylesheet"> </head>
 
 <body onload="init();">
     <div id="heading">
-        <h1>bounce<span>a physics based javascript browser game</span></h1>
+        <h1>bounce
+            <span>a physics based javascript browser game</span>
+        </h1>
     </div>
     <div id="content-wrap">
         <div id="content">
@@ -20,7 +21,7 @@
         </div>
     </div>
     <div id="footer">
-      <span>by scott rogers 2015</span>
+        <span>by scott rogers 2015</span>
     </div>
     <script src="lib/preloadjs-NEXT.min.js"></script>
     <script src="lib/easeljs-NEXT.combined.js"></script>
@@ -61,7 +62,6 @@ var splash;
 var queue;
 var loadField;
 var loadingInterval = 0;
-
 document.onkeydown = handleKeyDown;
 document.onkeyup = handleKeyUp;
 document.onmousedown = handleKeyDown;
@@ -74,7 +74,6 @@ function init() {
     stage = new createjs.Stage(canvas);
     world = new createjs.Container();
     stage.addChild(world);
-
     loadField = new createjs.Text("Loading", "bold italic 24px 'Helvetica Neue'", "#949494");
     loadField.scaleY = -1;
     loadField.maxWidth = 1000;
@@ -84,11 +83,9 @@ function init() {
     loadField.y = h / 2;
     stage.addChild(loadField);
     stage.update();
-
     queue = new createjs.LoadQueue();
     queue.addEventListener("complete", handleComplete);
     queue.addEventListener("progress", handleProgress);
-
     queue.loadManifest([{
         id: "splash",
         src: "assets/splash.png"
@@ -106,58 +103,47 @@ function handleProgress(event) {
 function handleComplete(event) {
     clearInterval(loadingInterval);
     stage.removeChild(loadField);
-
     bg = new createjs.Container();
     bgGradient = new createjs.Bitmap(queue.getResult("bg"));
     bg.addChild(bgGradient);
-
     splash = new createjs.Container();
     var img = new createjs.Bitmap(queue.getResult("splash"));
     splash.addChild(img);
     splash.x = -30;
     splash.y = h;
-
     messageField = new createjs.Text("Click", "normal 14px 'Helvetica Neue'", "#ffffff");
     messageField.textAlign = "left";
     messageField.lineHeight = 24;
     messageField.x = 220;
     messageField.y = h - 12;
-
     roundField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#919191");
     roundField.textAlign = "right";
     roundField.x = w - 40;
     roundField.y = h - 10;
-
     jumpField = new createjs.Text("0", "bold 64px 'Helvetica Neue'", "#ff004c");
     jumpField.textAlign = "right";
     jumpField.x = w - 40;
     jumpField.y = 60;
-
     jumpSubField = new createjs.Text("Jumps", "bold italic 12px 'Helvetica Neue'", "#b0b0b0");
     jumpSubField.textAlign = "right";
     jumpSubField.x = w - 50;
     jumpSubField.y = 50;
-
     gravityField = new createjs.Text("0", "italic 10px 'Helvetica Neue'", "#9f9f9f");
     gravityField.textAlign = "right";
     gravityField.x = w - 40;
     gravityField.y = h - 30;
-
     distanceField = new createjs.Text("0", "bold italic 16px 'Helvetica Neue'", "#656565");
     distanceField.textAlign = "right";
     distanceField.x = w - 40;
     distanceField.y = h - 45;
-
     stage.addChild(splash, bg, messageField);
     messageField.scaleY = -1;
     bg.scaleY = -1;
     splash.scaleY = -1;
-
     stage.setChildIndex(world, 1);
     stage.setChildIndex(messageField, 2);
     stage.setChildIndex(splash, 4);
     stage.setChildIndex(bg, 3);
-
     messageField.text =
         "↑ jump \n↓ bounce \n↑ weaker gravity, less platforms, slower jump regeneration \n↓ stronger gravity, more platforms, slower jump regeneration\n  a ball can jump whilst jumping\n  a ball would rather bounce than jump\n\n  reach the top to win\n  click to start";
     stage.update();
@@ -334,11 +320,11 @@ function tick(event) {
         if (!collisionTarget && ball.t > 0.1) {
             if (ball.x < platform.x + platform.sizeX + difficulty) {
                 if (ball.x > platform.x - difficulty - ball.size) {
-                    if (ball.y > platform.y + platform.sizeY) { // fall on
+                    if (ball.y > platform.y + platform.sizeY) {
                         if (ball.y + (ball.dY) < platform.y + platform.sizeY && ball.dY < 0) {
                             collisionTarget = platform;
                         }
-                    } else if (ball.y + ball.size < platform.y && ball.dY > 0) { // bounce into
+                    } else if (ball.y + ball.size < platform.y && ball.dY > 0) {
                         if (ball.y + ball.size + ball.dY > platform.y) {
                             collisionTarget = platform;
                         }
@@ -362,7 +348,6 @@ function tick(event) {
     if (nextRound % 100 === 0) {
         ball.recognizeAltitude(worldHeight);
     }
-
     if (nextRound <= 0) {
         round += 1;
         nextRound = 1000;
@@ -438,6 +423,21 @@ function handleKeyUp(e) {
     jumpHeld = false;
     diveHeld = false;
 }
+    </script>
+    <script>
+(function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+ga('create', 'UA-66371734-2', 'auto');
+ga('send', 'pageview');
     </script>
 </body>
 
