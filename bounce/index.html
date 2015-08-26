@@ -160,9 +160,9 @@ function retry() {
     loadField.text = "press any key to retry";
     stage.update();
     window.setTimeout(function() {
-      document.onkeydown = restart;
-      document.onkeyup = restart;
-      canvas.onclick = restart;
+        document.onkeydown = restart;
+        document.onkeyup = restart;
+        canvas.onclick = restart;
     }, 600);
 }
 
@@ -202,19 +202,15 @@ function restart() {
             loadField.text = "1";
             stage.update();
             window.setTimeout(function() {
-                loadField.text = "bounce";
+                stage.removeChild(loadField);
                 stage.update();
-                window.setTimeout(function() {
-                    stage.removeChild(loadField);
-                    stage.update();
-                    if (!createjs.Ticker.hasEventListener("tick")) {
-                        createjs.Ticker.addEventListener("tick", tick);
-                    }
-                    createjs.Ticker.setFPS(60);
-                }, 500);
-            }, 500);
-        }, 500);
-    }, 500);
+                if (!createjs.Ticker.hasEventListener("tick")) {
+                    createjs.Ticker.addEventListener("tick", tick);
+                }
+                createjs.Ticker.setFPS(60);
+            }, 800);
+        }, 800);
+    }, 800);
 }
 
 function setAssets() {
