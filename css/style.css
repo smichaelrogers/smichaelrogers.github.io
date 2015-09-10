@@ -1,279 +1,237 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900italic,700italic,500italic,400italic,300italic,100italic,900,700,500,300,100|Roboto+Condensed:400,700italic,400italic,300italic,700,300|Roboto+Slab:400,700,300,100);
-body, html {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", "Helvetica Neue", "Proxima Nova", "Lato", "Open Sans", "Helvetica", "Arial", sans-serif;
-    font-weight: normal;
-    font-size: 16px;
-}
-
-body {
-    transition: opacity 0.7s ease-in-out;
-}
-
 * * {
+    /*border: 1px solid rgb(238, 97, 179);*/
+    box-sizing: border-box !important;
+}
+body, html {
     box-sizing: border-box;
-    /*border: 1px solid rgba(0, 0, 0, 0.4) !important;*/
-    /*background: rgba(0, 0, 0, 0.32);*/
-}
-
-/*#ffffff
-#ff606e
-#00ddd8
-#517398
-#262c3a*/
-
-#wrapper {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-#header {
-    background: #ededed;
-    color: #000000;
-}
-#skills {
-    background: #517398;
-    color: #ffffff;
-}
-#projects {
-    background: #ffffff;
-    color: #000000;
-}
-#info {
-    background: #517398;
-    color: #ffffff;
-}
-a, a:active, a:visited, a:focus {
-    color: #ff606e;
+    font-family: 'Roboto', 'Helvetica Neue', 'Proxima Nova', 'Roboto', 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
     text-decoration: none;
-    transition: color .1s ease-in-out;
+    background: rgb(247, 247, 247);
+    color: rgb(64, 64, 64);
 }
-a:hover {
-    color: rgb(68, 68, 68);
+body {
+    transition: 0.5s linear opacity;
 }
-section, header, footer {
-    display: block;
-    margin: 0;
-    padding: 24px;
-    box-sizing: border-box;
+@media (max-width: 768px) {}
+.sh {
+    font-family: 'Roboto Condensed', 'Open Sans Condensed', 'Helvetica Neue', 'Proxima Nova', 'Helvetica', 'Arial', sans-serif;
 }
-div, span, main, ul, li, img, h1, h2, h3, h4, h5, h6, p {
-    margin: 0;
-    padding: 0;
-}
-span, h1, h2, h3, h4, h5, h6, ul, li {
-    display: block;
+.section {
+    width: 100%;
     float: left;
-    padding: 0;
+    min-height: 100px;
+}
+.section-content {
+    width: 768px;
+    padding: 24px;
+    margin: 0 auto;
+}
+.section-header {
+    width: 100%;
+}
+h1, h3, h4, h5, h6, span, a, li, div, img, figure, section, header, footer {
+    box-sizing: border-box;
+    display: block;
     margin: 0;
+    padding: 0;
 }
-ul {
-    list-style: none;
-}
-ul:after {
+ul::after, li::after, .section-wrap::after, .project::after, .project-header::after, .project-content::after {
     display: block;
     clear: both;
     content: "";
 }
-li {
-    list-style: none;
-}
-.page-section {
-    width: 100%;
-    display: block;
-    float: left;
-    padding: 120px 50px;
-}
-.section-wrap {
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-.section-content {
-    display: block;
-    float: left;
-    width: 100%;
-}
-.section-title, .name, .description {
-    width: 100%;
-    font-weight: 100;
-    display: block;
+span, a, li, div, p {
     float: left;
 }
-.section-title {
-    font-size: 36px;
+header, footer, .section, p, h2, h3, h4, h5, h6, ul {
+    width: 100%;
 }
-#header {
-    height: 100%;
-}
-.name {
-    font-size: 64px;
-    letter-spacing: -1.5px;
+ul, li {
+    margin: 0;
     padding: 0;
+    list-style: none !important;
 }
-.profession {
-    color: rgb(121, 121, 121);
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    font-weight: inherit;
+    line-height: inherit;
+}
+a, a:active, a:visited, a:focus, a:link {
+    color: rgba(0, 118, 168, 1);
+    text-decoration: none;
+    transition: 0.06s linear color;
+}
+a:hover {
+    color: rgba(0, 0, 0, 1);
+    text-decoration: none;
+}
+#top {
+    padding-top: 60px;
+}
+h1.text-header {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    border-bottom: 3px solid black;
+}
+.tagline {
+    margin-right: 48px;
     font-size: 16px;
-    padding: 0;
-    font-weight: 300;
-    margin: 0px 0 36px 0;
+    padding: 4px 6px;
 }
 .ext-links {
-    display: block;
-    float: left;
-    width: 100%;
+    padding: 6px 0;
+    font-size: 14px;
+    font-weight: 400;
 }
 .ext-links a {
-    display: block;
-    float: left;
-    padding: 32px 24px 0 0;
+    margin-right: 16px;
 }
-#skills ul, .project-resources, #skills li, .project-resources li {
-    display: block;
-    float: left;
-}
-#skills ul {
-    letter-spacing: 1px;
+ul.skills {
     width: 100%;
-    color: rgb(255, 255, 255);
-    font-size: 18px;
-    padding-right: 0;
+    padding: 0;
 }
-#skills li {
-    padding: 6px 12px 6px 0;
-}
-#skills li, .project-resources li {
+ul.skills li {
+    padding: 6px 6px 6px 0;
+    letter-spacing: 1px;
+    margin: 0;
     text-transform: lowercase;
-    font-family: "Roboto Condensed", "Open Sans Condensed", "Helvetica Neue", "Proxima Nova", "Helvetica", "Arial", sans-serif;
 }
-#skills li:nth-child(even), .project-resources li:nth-child(even) {
-    font-weight: 700;
+ul.skills li:nth-child(odd) {
+    font-weight: 900;
 }
-#skills li:nth-child(odd), .project-resources li:nth-child(odd) {
-    font-weight: 300;
+ul.skills li:nth-child(even) {
+    font-weight: 400;
 }
 .project {
-    display: block;
-    float: left;
-    width: 100%;
-    padding: 48px 0;
+    float: none !important;
+    border-bottom: 3px solid black;
+    padding: 16px 0 32px 0;
 }
 .project-left {
-    width: 100%;
-    display: block;
-    float: left;
-    padding: 36px 36px 24px 36px;
-    background: rgb(240, 240, 240);
+    width: 60%;
+    padding-right: 16px;
 }
 .project-right {
-    display: block;
-    float: right;
+    width: 40%;
+    padding-left: 16px;
+}
+.project-header {
+    padding-top: 16px;
     width: 100%;
-    padding: 24px 24px 24px 24px;
-    border-bottom: 1px solid rgb(228, 228, 228);
 }
-@media (min-width: 768px) {
-    #skills ul {
-        padding-right: 40% !important;
-    }
-    .section-wrap {
-        width: 900px !important;
-    }
-    .project-left {
-        width: 60% !important;
-        float: left !important;
-    }
-    .project-right {
-        width: 40% !important;
-        float: right !important;
-        border: none !important;
-    }
+.project-header p {
+    margin-top: 6px;
+    font-size: 16px;
 }
-.project-left h2 {
+.project-header > h2 {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: 700;
+    width: auto;
     display: block;
     float: left;
-    font-size: 20px;
-    font-weight: 700;
 }
 .project-links {
-    padding: 3px 0 0 12px;
-    display: block;
-    float: left;
+    padding: 6px 16px;
+    margin: 0;
 }
-.project-links a {
-    display: inline-block;
-    vertical-align: middle;
+.project-links > a {
+    padding: 0;
     font-size: 14px;
-    line-height: 10px;
-    padding: 0px 12px 0 0;
+    margin-left: 12px;
 }
-.project-resources li {
-    padding: 0 2px;
-    display: block;
-    float: left;
+.project-resources > li {
+    text-transform: lowercase;
+    color: rgb(98, 98, 98);
+    padding: 2px 2px;
+}
+.project-resources > li:nth-child(even) {
+    font-weight: 700;
 }
 .project-resources {
+    float: left;
+    width: 100%;
     font-size: 12px;
-    width: 100%;
-    color: rgb(117, 117, 117);
-    letter-spacing: 0.5px;
-    display: block;
-    float: left;
-    padding-bottom: 8px;
 }
-.project-left > span {
-    border: 2px solid rgb(41, 41, 41);
-    display: block;
+.project-screen {
+    border: 3px solid black;
     width: 100%;
-    float: left;
-    max-height: 320px;
-    margin: 12px 0;
+    height: 220px;
     overflow: hidden;
 }
-.project-left p {
-    display: block;
+.img-active::before {
+    position: absolute;
+    content: "";
     width: 100%;
-    float: left;
-    padding-right: 12px;
-    margin-bottom: 12px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
 }
-.project-left > span img {
-    width: 100%;
+.project-screen > img {
+    width: 120%;
     height: auto;
-    display: block;
 }
-.project-logo {
-    display: block;
-    float: left;
+.project-screen, .project-screens {}
+.project-screens {
+    margin-top: 8px;
     width: 100%;
-}
-a.project-logo img {
-    width: 240px;
+    border: 3px solid black;
+    float: left;
     height: auto;
+    overflow: hidden;
+}
+.project-screens li {
+    position: relative;
+    overflow: hidden;
+    width: 25%;
+    cursor: pointer;
+    height: 80px;
+    float: left;
+}
+.project-screens li:nth-child(-n+3) {
+    border-right: 3px solid black;
+}
+.project-screens > li > img {
     display: block;
+    height: 100%;
+    width: auto;
 }
 .project-right h3 {
-    display: block;
-    width: 100%;
-    padding: 0px 12px;
-    float: left;
-    font-size: 18px;
-    font-family: "Roboto Condensed";
-    font-weight: 400;
+    font-size: 20px;
     letter-spacing: 1px;
-}
-.project-bullets {
-    display: block;
-    float: left;
-    width: 100%;
-    padding: 6px 12px 12px 12px;
+    margin-bottom: 8px;
 }
 .project-bullets li {
     width: 100%;
-    padding: 6px 0;
-    font-size: 12px;
+    font-size: 13px;
+    padding: 4px 0;
+}
+.red {
+    background: rgba(254, 74, 73, 100);
+    color: rgba(255, 255, 255, 1);
+}
+.blue {
+    background: rgba(42, 183, 202, 100);
+    color: rgba(255, 255, 255, 1);
+}
+.yellow {
+    background: rgba(254, 215, 102, 100);
+    color: rgba(0, 0, 0, 1);
+}
+.grey {
+    background: rgba(230, 230, 234, 100);
+    color: rgba(40, 40, 40, 1);
+}
+.light {
+    background: rgba(244, 244, 248, 100);
+    color: rgba(0, 0, 0, 1);
 }
