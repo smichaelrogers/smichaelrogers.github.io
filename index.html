@@ -1,17 +1,194 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="en-US">
+
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Scott M. Rogers, software engineer, NYC</title>
-  <meta name="description" content="Scott M. Rogers is a NYC based software engineer and web developer." />
-  <style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;border:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;color:#bababa;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;height:100vh;overflow:hidden}h1{margin:0 auto;max-width:500px;font-size:24px}a{font-size:20px;margin-left:24px;color:#46daee;text-decoration:none;font-weight:normal}a:hover{color:#999}</style>
+  <meta name="description" content="Project portfolio of Scott M. Rogers, a full-stack software developer currently in New York City.">
+  <title>Projects | Scott M. Rogers</title>
+  <link rel="stylesheet" href="/assets/portfolio.css">
+  <link rel="canonical" href="http://scottmichael.net/">
+  <link rel="apple-icon-precomposed" sizes="192x192" href="/assets/apple-icon-precomposed.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
 </head>
+
 <body>
-  <h1>Scott M. Rogers is an NYC based software engineer
-    <a href="https://github.com/smichaelrogers">Github</a>
-    <a href="https://www.linkedin.com/in/smichaelrogers">Linkedin</a>
-  </h1>
+  
+  <div class="section header">
+    <div class="container">
+      <div class="nav">
+        <div class="nav-title">Scott M. Rogers <span>Software developer</span></div>
+        <div class="flex-1"></div>
+        <a class="nav-link" href="/">Projects</a>
+        <a class="nav-link" href="/about/">About</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section title">
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <h1>Projects</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content">
+    
+  
+    <div class="section project" id="play-alpha">
+      <div class="container">
+        <div class="row">
+          <div class="column column-split">
+            <div class="project-header">
+              <h3>PlayAlpha</h3>
+              <h5>Chess engine API and client</h5>
+            </div>
+            <div class="project-about">
+              <p>Legal moves are accepted by the game client, which requests the next position from the chess engine, Alpha through a JSON API.</p>
+              <p>Engine logs are displayed through a console that can be toggled into view, and game winning positions are saved to Redis along with the engine's resulting win-loss record.</p>
+              <p>Written in Ruby and JavaScript, using Sinatra, Redis, and Sass.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/smichaelrogers/play-alpha">View on GitHub</a><a href="http://www.playalpha.xyz">Live version</a>
+            </div>
+          </div>
+          <div class="column column-split flex-center">
+            <div class="project-image">
+              <img src="/assets/images/play-alpha.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section project" id="alpha">
+      <div class="container">
+        <div class="row">
+          <div class="column column-split">
+            <div class="project-header">
+              <h3>Alpha</h3>
+              <h5>Minimal chess AI</h5>
+            </div>
+            <div class="project-about">
+              <p>Ruby chess engine powered by a minimax algorithm, optimized through alpha-beta pruning and move-history based heuristics.</p>
+              <p>Creates a new game session from any FEN position string, evaluates ~30,000 positions/second, written in under 150 lines of code.</p>
+              <p>Written in Ruby.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/smichaelrogers/alpha">View on GitHub</a>
+            </div>
+          </div>
+          <div class="column column-split flex-center">
+            <div class="project-image">
+              <img src="/assets/images/alpha.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section project" id="bounce">
+      <div class="container">
+        <div class="row">
+          <div class="column column-split">
+            <div class="project-header">
+              <h3>Bounce</h3>
+              <h5>Bouncing ball simulator</h5>
+            </div>
+            <div class="project-about">
+              <p>The objective of the game is to get to the top.  As the ball goes up, gravity decreases, platforms get smaller and more spread out, and jumps replenish slower. As time passes, the world moves faster, and reaching the top gets more difficult.</p>
+              <p>The functions that determine the balls movement, are derived from real world physics.</p>
+              <p>Written in JavaScript.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/smichaelrogers/bounce">View on GitHub</a><a href="http://www.scottmichael.net/bounce">Live version</a>
+            </div>
+          </div>
+          <div class="column column-split flex-center">
+            <div class="project-image">
+              <img src="/assets/images/bounce.gif">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section project" id="pollrbear">
+      <div class="container">
+        <div class="row">
+          <div class="column column-split">
+            <div class="project-header">
+              <h3>Pollrbear</h3>
+              <h5>Live polling app</h5>
+            </div>
+            <div class="project-about">
+              <p>Allows users to create, view, and participate in live polled events, displaying results with charts and word clouds using HTML5 Canvas.</p>
+              <p>Features a Rails RESTful JSON API, a Backbone.js frontend, and OAuth user authentication.</p>
+              <p>Written in Ruby and JavaScript, using Rails, Backbone.js, Sass, and SQL.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/smichaelrogers/pollrbear">View on GitHub</a><a href="http://www.pollrbear.com">Live version</a>
+            </div>
+          </div>
+          <div class="column column-split flex-center">
+            <div class="project-image">
+              <img src="/assets/images/pollrbear.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="section project" id="tolva">
+      <div class="container">
+        <div class="row">
+          <div class="column column-split">
+            <div class="project-header">
+              <h3>Tölva</h3>
+              <h5>Search visualization experiment</h5>
+            </div>
+            <div class="project-about">
+              <p>Renders visualizations of data collected by a chess engine while a user plays against it. Gathers data from each node of the search tree reflecting position evaluation and search performance.</p>
+              <p>Iceland didn't have a word for computer so they mashed up the phrase "prophetess(<span class="italic">völva</span>) of numbers(<span class="italic">tala</span>)" into tölva (<span class="italic">computer</span>).</p>
+              <p>Written in Ruby and JavaScript, using Sinatra, Sass, Backbone.js, and D3.js.</p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/smichaelrogers/tolva">View on GitHub</a>
+            </div>
+          </div>
+          <div class="column column-split flex-center">
+            <div class="project-image">
+              <img src="/assets/images/tolva.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section footer">
+    <div class="container">
+      <div class="row">
+        <div>
+          <h5>Scott M. Rogers</h5>
+          <h6>Software developer</h6>
+          <h6>New York City</h6>
+        </div>
+        <div>
+          <a href="https://github.com/smichaelrogers">GitHub</a>
+          <a href="https://www.linkedin.com/in/smichaelrogers">Linkedin</a>
+          <a href="mailto:mrogerssn@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </body>
+
 </html>
