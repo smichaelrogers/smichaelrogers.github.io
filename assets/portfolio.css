@@ -19,19 +19,28 @@ h1, h2, h3, h4, h5, h6, p, small, strong {
 
 html {
   background: #fff;
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased; }
+  @media (min-width: 800px) {
+    html {
+      font-size: 15px; } }
+  @media (min-width: 1200px) {
+    html {
+      font-size: 16px; } }
+  @media (min-width: 1600px) {
+    html {
+      font-size: 18px; } }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   color: #69707a;
   font-size: 1rem;
-  line-height: 1.5;
   font-weight: 400;
   font-style: normal; }
 
 p {
-  font-family: Georgia, Garamond, 'Times New Roman', Times, serif;
+  font-family: Georgia, serif;
   color: #90969f;
   line-height: 1.65;
   letter-spacing: 0.01rem;
@@ -42,37 +51,18 @@ a {
   color: #69707a;
   cursor: pointer;
   text-decoration: none;
-  -webkit-transition: 80ms all linear;
   transition: 80ms all linear; }
   a:hover {
     color: #147efb; }
 
 .flex-1 {
-  -webkit-box-flex: 1 !important;
-      -ms-flex: 1 !important;
-          flex: 1 !important; }
+  flex: 1 !important; }
 
 .flex-center {
-  -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important; }
-
-.flex-end {
-  -webkit-box-pack: end !important;
-      -ms-flex-pack: end !important;
-          justify-content: flex-end !important; }
+  justify-content: center !important; }
 
 .italic {
   font-style: italic !important; }
-
-.centered {
-  -webkit-box-pack: center !important;
-      -ms-flex-pack: center !important;
-          justify-content: center !important;
-  -webkit-box-align: center !important;
-      -ms-flex-align: center !important;
-              -ms-grid-row-align: center !important;
-          align-items: center !important; }
 
 .container {
   position: relative;
@@ -81,35 +71,21 @@ a {
   padding: 0 20px; }
 
 .row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-flow: row wrap;
-      flex-flow: row wrap;
+  flex-flow: row wrap;
   padding: 0 10px; }
 
 .column {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 400px;
-          flex: 1 1 400px;
+  flex: 1 1 400px;
   min-width: 40%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   padding: 10px; }
   .column-full {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 100%;
-            flex: 1 0 100%;
+    flex: 1 0 100%;
     width: 100%; }
   .column-split {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 1 400px;
-            flex: 1 1 400px;
+    flex: 1 1 400px;
     min-width: 40%; }
 
 .section {
@@ -123,35 +99,30 @@ a {
   padding-bottom: 40px; }
 
 .nav {
-  padding: 30px 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  padding: 20px;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
-  .nav-group {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center; }
-  .nav-item {
-    padding: 10px 20px; }
-  .nav-link {
+  justify-content: space-between; }
+  @media (max-width: 540px) {
+    .nav {
+      flex-direction: column; }
+      .nav span {
+        margin-bottom: 20px; }
+      .nav a:not(:first-child) {
+        margin-bottom: 10px; } }
+  .nav a {
     color: #aeb1b5;
     margin-right: 40px; }
-    .nav-link:hover {
+    .nav a:hover {
       color: #147efb; }
-  .nav-title {
-    font-weight: 500;
-    color: #93979d;
-    letter-spacing: -0.05rem; }
-    .nav-title span {
-      color: #aeb1b5;
-      letter-spacing: 0px;
-      font-weight: 300; }
+    .nav a:first-child {
+      font-weight: 500;
+      color: #93979d;
+      letter-spacing: -0.05rem;
+      margin-right: 0.5rem; }
+  .nav span {
+    color: #aeb1b5;
+    letter-spacing: 0px;
+    font-weight: 300; }
 
 .title h1 {
   font-weight: 100;
@@ -180,10 +151,10 @@ a {
   padding: 40px 0; }
   .project-links a {
     line-height: 20px;
-    padding: 12px 15px;
+    padding: 0.8rem;
     font-size: 0.9rem;
-    margin-right: 20px;
-    border-radius: 22px;
+    margin-right: 1rem;
+    border-radius: 1.6rem;
     color: #797e84;
     border: 1px solid #ddd; }
     .project-links a:hover {
@@ -198,7 +169,7 @@ a {
   padding-right: 2rem; }
 .about-image {
   margin: 10px;
-  max-width: 400px; }
+  max-width: 480px; }
 .about a {
   color: #147efb; }
 
@@ -207,9 +178,7 @@ a {
   color: #aeb1b5;
   padding: 40px 0 80px 0; }
   .footer .row div {
-    -webkit-box-flex: 0;
-        -ms-flex: none;
-            flex: none;
+    flex: none;
     margin-right: 80px; }
   .footer a {
     color: #aeb1b5;
