@@ -51,15 +51,20 @@ a {
   color: #69707a;
   cursor: pointer;
   text-decoration: none;
+  -webkit-transition: 80ms all linear;
   transition: 80ms all linear; }
   a:hover {
     color: #147efb; }
 
 .flex-1 {
-  flex: 1 !important; }
+  -webkit-box-flex: 1 !important;
+      -ms-flex: 1 !important;
+          flex: 1 !important; }
 
 .flex-center {
-  justify-content: center !important; }
+  -webkit-box-pack: center !important;
+      -ms-flex-pack: center !important;
+          justify-content: center !important; }
 
 .italic {
   font-style: italic !important; }
@@ -71,21 +76,35 @@ a {
   padding: 0 20px; }
 
 .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
   padding: 0 10px; }
 
 .column {
-  flex: 1 1 400px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 400px;
+          flex: 1 1 400px;
   min-width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 10px; }
   .column-full {
-    flex: 1 0 100%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
     width: 100%; }
   .column-split {
-    flex: 1 1 400px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 400px;
+            flex: 1 1 400px;
     min-width: 40%; }
 
 .section {
@@ -100,11 +119,18 @@ a {
 
 .nav {
   padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between; }
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
   @media (max-width: 540px) {
     .nav {
-      flex-direction: column; }
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; }
       .nav span {
         margin-bottom: 20px; }
       .nav a:not(:first-child) {
@@ -178,7 +204,9 @@ a {
   color: #aeb1b5;
   padding: 40px 0 80px 0; }
   .footer .row div {
-    flex: none;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
     margin-right: 80px; }
   .footer a {
     color: #aeb1b5;
