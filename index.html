@@ -9,10 +9,10 @@
     <meta name="keywords" content="Scott M. Rogers, Scott Rogers, software developer, full-stack developer, software portfolio">
     <meta name="author" content="Scott M. Rogers">
 
-    <title>About &middot; Scott M. Rogers</title>
+    <title>Projects &middot; Scott M. Rogers</title>
 
     <link rel="stylesheet" href="/stylesheets/site.css">
-    <link rel="canonical" href="http://scottrogers.tech/about">
+    <link rel="canonical" href="http://scottrogers.tech/">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
@@ -26,8 +26,8 @@
         <nav class="nav">
           <span class="nav-title"><strong>Scott M. Rogers</strong><span>Software Developer</span></span>
           <div class="nav__links">
-            <a class="nav__link" href="/">Projects</a>
-            <a class="nav__link nav__link--active" href="/about">About</a>
+            <a class="nav__link nav__link--active" href="/">Projects</a>
+            <a class="nav__link" href="/about">About</a>
             <a class="nav__icon" href="https://github.com/smichaelrogers/"><svg><use xlink:href="#svg-github"></use></svg></a>
             <a class="nav__icon" href="https://linkedin.com/in/smichaelrogers"><svg><use xlink:href="#svg-linkedin"></use></svg></a>
           </div>
@@ -37,30 +37,50 @@
 
     <section>
       <div class="container">
-        <div class="about">
-          <p>
-            Hi,
-            <br>
-            I'm a full-stack developer with experience building scalable web applications using a variety of modern libraries and frameworks.
-            <br>
-            You can find out more through the links below.
-            <br>
-
-          </p>
-          <div class="about__section">
-            <div class="about-links">
-              <a href="https://github.com/smichaelrogers">GitHub</a><br>
-              <a href="https://www.linkedin.com/in/smichaelrogers">Linkedin</a><br>
-              <a href="mailto:mrogerssn@gmail.com">mrogerssn@gmail.com</a><br>
-              <a href="http://smr-resume.surge.sh/">Resume website</a><br>
-            </div>
-            <div class="about-image">
-              <div class="image--wide"><img src="/images/scott.jpg"></div>
-            </div>
+        
+        <div class="project" id="play-alpha">
+          <div class="project__content">
+            <div class="project-header"><h1>PlayAlpha</h1><h5>Chess engine API and game client</h5></div>
+            <div class="project-about"><p>Legal moves are accepted by the game client, which requests the next position from the chess engine through a JSON API.</p><p>Engine logs are displayed through a console that can be toggled into view, and game winning positions are saved to Redis along with the engine's resulting win-loss record.</p><p>Written in Ruby and JavaScript, using Sinatra, Redis, and Sass.</p></div>
+            <div class="project-links"><a href="https://github.com/smichaelrogers/play-alpha">View source</a><a href="http://www.playalpha.xyz">Live version</a></div>
           </div>
-          <p>
-            Take care.
-          </p>
+          <div class="project__image"><div class="image"><img src="/images/play-alpha.png"></div></div>
+        </div>
+
+        <div class="project" id="bounce">
+          <div class="project__content">
+            <div class="project-header"><h1>Bounce</h1><h5>Bouncing ball simulator</h5></div>
+            <div class="project-about"><p>The objective of the game is to get to the top.  As the ball goes up, gravity decreases, platforms get smaller and more spread out, and jumps replenish slower. As time passes, the world moves faster, and reaching the top gets more difficult.</p><p>The momentum, inertia, and gravity of game objects are simulated by functions derived from real-world physics.</p><p>Written in JavaScript.</p></div>
+            <div class="project-links"><a href="https://github.com/smichaelrogers/bounce">View source</a><a href="http://www.scottmichael.net/bounce">Live version</a></div>
+          </div>
+          <div class="project__image"><div class="image"><img src="/images/bounce.gif"></div></div>
+        </div>
+
+        <div class="project" id="alpha">
+          <div class="project__content">
+            <div class="project-header"><h1>Alpha</h1><h5>Minimal chess AI</h5></div>
+            <div class="project-about"><p>Ruby chess engine powered by a minimax algorithm, optimized through alpha-beta pruning and move-history based heuristics.</p><p>Creates a new game session from any FEN position string, evaluates ~30,000 positions/second, and is written in less than 150 lines of code.</p><p>Written in Ruby.</p></div>
+            <div class="project-links"><a href="https://github.com/smichaelrogers/alpha">View source</a></div>
+          </div>
+          <div class="project__image"><div class="image"><img src="/images/alpha.gif"></div></div>
+        </div>
+
+        <div class="project" id="pollrbear">
+          <div class="project__content">
+            <div class="project-header"><h1>Pollrbear</h1><h5>Live polling app</h5></div>
+            <div class="project-about"><p>Allows users to create, view, and participate in live polled events, displaying results with charts and word clouds using HTML5 Canvas.</p><p>Features include a RESTful JSON API, a Backbone.js frontend, and OAuth user authentication.</p><p>Written in Ruby and JavaScript, using Rails, Backbone.js, Sass, and SQL.</p></div>
+            <div class="project-links"><a href="https://github.com/smichaelrogers/pollrbear">View source</a><a href="http://www.pollrbear.com">Live version</a></div>
+          </div>
+          <div class="project__image"><div class="image"><img src="/images/pollrbear.png"></div></div>
+        </div>
+
+        <div class="project" id="tolva">
+          <div class="project__content">
+            <div class="project-header"><h1>Tölva</h1><h5>Search visualization experiment</h5></div>
+            <div class="project-about"><p>Renders visualizations of data collected by its chess engine while a user plays against it. Gathers data from each node of the search tree reflecting position evaluation and search performance.</p><p>Iceland didn't have a word for computer so they mashed up the phrase "prophetess(<span class="italic">völva</span>) of numbers(<span class="italic">tala</span>)" into tölva (<span class="italic">computer</span>).</p><p>Written in Ruby and JavaScript, using Sinatra, Sass, Backbone.js, and D3.js.</p></div>
+            <div class="project-links"><a href="https://github.com/smichaelrogers/tolva">View source</a></div>
+          </div>
+          <div class="project__image"><div class="image"><img src="/images/tolva.png"></div></div>
         </div>
 
       </div>
