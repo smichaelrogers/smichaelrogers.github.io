@@ -1,0 +1,516 @@
+<html>
+
+<head>
+  <title>recipe analyzer v0.1</title>
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400|Roboto:100,300,300i,400,400i,500,700" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      vertical-align: baseline;
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      border: 0;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    body {
+      font: 14px/20px roboto, sans-serif;
+      background: #f9f9f9;
+      color: #555;
+    }
+
+    textarea {
+      width: 100%;
+    }
+
+    textarea,
+    input {
+      appearance: none;
+      /* border: 1px solid cyan; */
+    }
+
+    .page {
+      width: 100%;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      min-height: 100%;
+      box-shadow: -1px 0 10px 0 rgba(0, 0, 0, 0.06), 0 0 3px 0 rgba(0, 0, 0, 0.07), 5px 0 20px 5px rgba(0, 0, 0, 0.03);
+    }
+
+    .pageHeader {
+      padding: 40px 60px 20px 60px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .pageHeader img {
+      height: 60px;
+      width: auto;
+    }
+
+    .recipe {}
+
+    .recipeHeader {
+      padding: 10px 60px;
+    }
+
+    .recipeBody {
+      display: flex;
+      padding: 10px 60px;
+      justify-content: space-between;
+    }
+
+    .recipeNutrients {
+      padding: 60px;
+    }
+
+    .recipeIngredients {
+      width: 50%;
+    }
+
+    .recipeNutrition {
+      width: 30%;
+      margin-right: 40px;
+    }
+
+    #servings {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-weight: bolder;
+      letter-spacing: -0.5px;
+      font-size: 11px;
+      background: #eee;
+      color: #777;
+      text-align: center;
+    }
+
+    #servingsLabel {
+      font-size: 10px;
+      /* letter-spacing: -0.1px; */
+    }
+
+    #name {
+      width: 100%;
+      font-size: 42px;
+      line-height: 54px;
+      letter-spacing: -1px;
+      color: #555;
+      font-family: 'playfair display', serif;
+      margin-bottom: 10px;
+    }
+
+    #name::placeholder {
+      color: #555;
+    }
+
+    #ingredients {
+      min-height: 200px;
+      border-radius: 5px;
+      padding: 8px 4px;
+    }
+
+    #ingredients:focus {}
+
+    #chefsNote {
+      font-style: italic;
+      min-height: 20px;
+      border-top: 3px solid #eee;
+      color: #999;
+      font-size: 13px;
+      padding: 10px 3px;
+    }
+
+    .recipe h5 {
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 2px;
+      border-bottom: 3px solid #ddd;
+      margin-bottom: 5px;
+      color: #bbb;
+    }
+
+    #nutrients {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+
+    .nutrient {
+      flex: 0 0 30%;
+      font-size: 0.8em;
+      line-height: 1.2em;
+      height: 1.2em;
+      overflow-y: hidden;
+      padding-right: 3px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .nutrient span:first-child {
+      margin-right: 2px;
+      flex: 1;
+      word-break: break-all;
+    }
+
+    .nutrient span:last-child {}
+
+    .nf {}
+
+    .nfItem {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #ddd;
+      font-size: 13px;
+      line-height: 13px;
+      padding-top: 4px;
+      padding-bottom: 2px;
+    }
+
+    .nfItem.indented {
+      margin-left: 15px;
+    }
+
+    .nfItem span:first-child {
+      font-weight: bolder;
+      margin-right: 3px;
+    }
+
+    .nfItem.indented span:first-child {
+      font-weight: normal;
+    }
+
+    .recipeHeaderServings {
+      font-size: 12px;
+    }
+
+    .recipeNutritionServings {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    #servingSize {}
+
+    #servingsPerRecipe {
+      flex: 1;
+    }
+
+    .recipeFoods {
+      padding: 60px;
+    }
+
+    #foods {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+
+    .food {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .food>span {
+      flex: 1 0;
+    }
+
+    /* * { box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4); } */
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="pageContent">
+      <div class="recipe">
+        <div class="recipeHeader">
+          <div class="recipeName">
+            <input id="name" type="text" placeholder="New Recipe" />
+          </div>
+          <div class="recipeHeaderServings">
+            <input id="servings" type="text" value="1" />
+            <span id="servingsLabel">Servings</span>
+          </div>
+        </div>
+        <div class="recipeBody">
+          <div class="recipeIngredients">
+            <h5>Ingredients</h5>
+            <textarea id="ingredients"></textarea>
+            <textarea id="chefsNote"></textarea>
+          </div>
+          <div class="recipeNutrition">
+            <h5>Nutrition</h5>
+            <div class="recipeNutritionServings">
+              <div id="servingSize">Serving Size 0g</div>
+            </div>
+            <div class="nf">
+              <div class="nfItem"><span>Calories</span><span id="nf208">0</span></div>
+              <div class="nfItem"><span>Total Fat</span><span id="nf204">0g</span></div>
+              <div class="nfItem indented"><span>Saturated Fat</span><span id="nf606">0g</span></div>
+              <div class="nfItem indented"><span>Monounsaturated Fat</span><span id="nf645">0g</span></div>
+              <div class="nfItem indented"><span>Polyunsaturated Fat</span><span id="nf646">0g</span></div>
+              <div class="nfItem"><span>Cholesterol</span><span id="nf601">0mg</span></div>
+              <div class="nfItem"><span>Sodium</span><span id="nf307">0mg</span></div>
+              <div class="nfItem"><span>Total Carbohydrate</span><span id="nf205">0g</span></div>
+              <div class="nfItem indented"><span>Dietary Fiber</span><span id="nf291">0g</span></div>
+              <div class="nfItem indented"><span>Sugars</span><span id="nf269">0g</span></div>
+              <div class="nfItem"><span>Protein</span><span id="nf203">0g</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="recipeFoods">
+          <h5>Nutrition by Ingredient</h5>
+          <div id="foods"></div>
+        </div>
+        <div class="recipeNutrients">
+          <h5>All Nutrients</h5>
+          <div id="nutrients"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var _el = {};
+    function el(id) {
+      if (!_el[id]) _el[id] = document.getElementById(id);
+      return _el[id];
+    }
+    var recipe = {};
+    recipe.ndb = [
+      { name: 'Protein', value: 0, unit: 'g', order: 600, id: 203 },
+      { name: 'Total lipid (fat)', value: 0, unit: 'g', order: 800, id: 204 },
+      { name: 'Carbohydrate, by difference', value: 0, unit: 'g', order: 1100, id: 205 },
+      { name: 'Ash', value: 0, unit: 'g', order: 1000, id: 207 },
+      { name: 'Energy', value: 0, unit: '', order: 300, id: 208 },
+      { name: 'Starch', value: 0, unit: 'g', order: 2200, id: 209 },
+      { name: 'Sucrose', value: 0, unit: 'g', order: 1600, id: 210 },
+      { name: 'Glucose (dextrose)', value: 0, unit: 'g', order: 1700, id: 211 },
+      { name: 'Fructose', value: 0, unit: 'g', order: 1800, id: 212 },
+      { name: 'Lactose', value: 0, unit: 'g', order: 1900, id: 213 },
+      { name: 'Maltose', value: 0, unit: 'g', order: 2000, id: 214 },
+      { name: 'Alcohol, ethyl', value: 0, unit: 'g', order: 18200, id: 221 },
+      { name: 'Water', value: 0, unit: 'g', order: 100, id: 255 },
+      { name: 'Adjusted Protein', value: 0, unit: 'g', order: 700, id: 257 },
+      { name: 'Caffeine', value: 0, unit: 'mg', order: 18300, id: 262 },
+      { name: 'Theobromine', value: 0, unit: 'mg', order: 18400, id: 263 },
+      { name: 'Energy', value: 0, unit: 'kJ', order: 400, id: 268 },
+      { name: 'Sugars, total', value: 0, unit: 'g', order: 1500, id: 269 },
+      { name: 'Galactose', value: 0, unit: 'g', order: 2100, id: 287 },
+      { name: 'Fiber, total dietary', value: 0, unit: 'g', order: 1200, id: 291 },
+      { name: 'Calcium, Ca', value: 0, unit: 'mg', order: 5300, id: 301 },
+      { name: 'Iron, Fe', value: 0, unit: 'mg', order: 5400, id: 303 },
+      { name: 'Magnesium, Mg', value: 0, unit: 'mg', order: 5500, id: 304 },
+      { name: 'Phosphorus, P', value: 0, unit: 'mg', order: 5600, id: 305 },
+      { name: 'Potassium, K', value: 0, unit: 'mg', order: 5700, id: 306 },
+      { name: 'Sodium, Na', value: 0, unit: 'mg', order: 5800, id: 307 },
+      { name: 'Zinc, Zn', value: 0, unit: 'mg', order: 5900, id: 309 },
+      { name: 'Copper, Cu', value: 0, unit: 'mg', order: 6000, id: 312 },
+      { name: 'Fluoride, F', value: 0, unit: 'µg', order: 6240, id: 313 },
+      { name: 'Manganese, Mn', value: 0, unit: 'mg', order: 6100, id: 315 },
+      { name: 'Selenium, Se', value: 0, unit: 'µg', order: 6200, id: 317 },
+      { name: 'Vitamin A, IU', value: 0, unit: 'IU', order: 7500, id: 318 },
+      { name: 'Retinol', value: 0, unit: 'µg', order: 7430, id: 319 },
+      { name: 'Vitamin A, RAE', value: 0, unit: 'µg', order: 7420, id: 320 },
+      { name: 'Carotene, beta', value: 0, unit: 'µg', order: 7440, id: 321 },
+      { name: 'Carotene, alpha', value: 0, unit: 'µg', order: 7450, id: 322 },
+      { name: 'Vitamin E (alpha-tocopherol)', value: 0, unit: 'mg', order: 7900, id: 323 },
+      { name: 'Vitamin D', value: 0, unit: 'IU', order: 8750, id: 324 },
+      { name: 'Vitamin D2 (ergocalciferol)', value: 0, unit: 'µg', order: 8710, id: 325 },
+      { name: 'Vitamin D3 (cholecalciferol)', value: 0, unit: 'µg', order: 8720, id: 326 },
+      { name: 'Vitamin D (D2 + D3)', value: 0, unit: 'µg', order: 8700, id: 328 },
+      { name: 'Cryptoxanthin, beta', value: 0, unit: 'µg', order: 7460, id: 334 },
+      { name: 'Lycopene', value: 0, unit: 'µg', order: 7530, id: 337 },
+      { name: 'Lutein + zeaxanthin', value: 0, unit: 'µg', order: 7560, id: 338 },
+      { name: 'Tocopherol, beta', value: 0, unit: 'mg', order: 8000, id: 341 },
+      { name: 'Tocopherol, gamma', value: 0, unit: 'mg', order: 8100, id: 342 },
+      { name: 'Tocopherol, delta', value: 0, unit: 'mg', order: 8200, id: 343 },
+      { name: 'Vitamin C, total ascorbic acid', value: 0, unit: 'mg', order: 6300, id: 401 },
+      { name: 'Thiamin', value: 0, unit: 'mg', order: 6400, id: 404 },
+      { name: 'Riboflavin', value: 0, unit: 'mg', order: 6500, id: 405 },
+      { name: 'Niacin', value: 0, unit: 'mg', order: 6600, id: 406 },
+      { name: 'Pantothenic acid', value: 0, unit: 'mg', order: 6700, id: 410 },
+      { name: 'Vitamin B-6', value: 0, unit: 'mg', order: 6800, id: 415 },
+      { name: 'Folate, total', value: 0, unit: 'µg', order: 6900, id: 417 },
+      { name: 'Vitamin B-12', value: 0, unit: 'µg', order: 7300, id: 418 },
+      { name: 'Choline, total', value: 0, unit: 'mg', order: 7220, id: 421 },
+      { name: 'Menaquinone-4', value: 0, unit: 'µg', order: 8950, id: 428 },
+      { name: 'Dihydrophylloquinone', value: 0, unit: 'µg', order: 8900, id: 429 },
+      { name: 'Vitamin K (phylloquinone)', value: 0, unit: 'µg', order: 8800, id: 430 },
+      { name: 'Folic acid', value: 0, unit: 'µg', order: 7000, id: 431 },
+      { name: 'Folate, food', value: 0, unit: 'µg', order: 7100, id: 432 },
+      { name: 'Folate, DFE', value: 0, unit: 'µg', order: 7200, id: 435 },
+      { name: 'Betaine', value: 0, unit: 'mg', order: 7270, id: 454 },
+      { name: 'Tryptophan', value: 0, unit: 'g', order: 16300, id: 501 },
+      { name: 'Threonine', value: 0, unit: 'g', order: 16400, id: 502 },
+      { name: 'Isoleucine', value: 0, unit: 'g', order: 16500, id: 503 },
+      { name: 'Leucine', value: 0, unit: 'g', order: 16600, id: 504 },
+      { name: 'Lysine', value: 0, unit: 'g', order: 16700, id: 505 },
+      { name: 'Methionine', value: 0, unit: 'g', order: 16800, id: 506 },
+      { name: 'Cystine', value: 0, unit: 'g', order: 16900, id: 507 },
+      { name: 'Phenylalanine', value: 0, unit: 'g', order: 17000, id: 508 },
+      { name: 'Tyrosine', value: 0, unit: 'g', order: 17100, id: 509 },
+      { name: 'Valine', value: 0, unit: 'g', order: 17200, id: 510 },
+      { name: 'Arginine', value: 0, unit: 'g', order: 17300, id: 511 },
+      { name: 'Histidine', value: 0, unit: 'g', order: 17400, id: 512 },
+      { name: 'Alanine', value: 0, unit: 'g', order: 17500, id: 513 },
+      { name: 'Aspartic acid', value: 0, unit: 'g', order: 17600, id: 514 },
+      { name: 'Glutamic acid', value: 0, unit: 'g', order: 17700, id: 515 },
+      { name: 'Glycine', value: 0, unit: 'g', order: 17800, id: 516 },
+      { name: 'Proline', value: 0, unit: 'g', order: 17900, id: 517 },
+      { name: 'Serine', value: 0, unit: 'g', order: 18000, id: 518 },
+      { name: 'Hydroxyproline', value: 0, unit: 'g', order: 18100, id: 521 },
+      { name: 'Sugars, added', value: 0, unit: 'g', order: 1400, id: 539 },
+      { name: 'Vitamin E, added', value: 0, unit: 'mg', order: 7920, id: 573 },
+      { name: 'Vitamin B-12, added', value: 0, unit: 'µg', order: 7340, id: 578 },
+      { name: 'Cholesterol', value: 0, unit: 'mg', order: 15700, id: 601 },
+      { name: 'Fatty acids, total trans', value: 0, unit: 'g', order: 15400, id: 605 },
+      { name: 'Fatty acids, total saturated', value: 0, unit: 'g', order: 9700, id: 606 },
+      { name: '4:0', value: 0, unit: 'g', order: 9800, id: 607 },
+      { name: '6:0', value: 0, unit: 'g', order: 9900, id: 608 },
+      { name: '8:0', value: 0, unit: 'g', order: 10000, id: 609 },
+      { name: '10:0', value: 0, unit: 'g', order: 10100, id: 610 },
+      { name: '12:0', value: 0, unit: 'g', order: 10300, id: 611 },
+      { name: '14:0', value: 0, unit: 'g', order: 10500, id: 612 },
+      { name: '16:0', value: 0, unit: 'g', order: 10700, id: 613 },
+      { name: '18:0', value: 0, unit: 'g', order: 10900, id: 614 },
+      { name: '20:0', value: 0, unit: 'g', order: 11100, id: 615 },
+      { name: '18:1 undifferentiated', value: 0, unit: 'g', order: 12100, id: 617 },
+      { name: '18:2 undifferentiated', value: 0, unit: 'g', order: 13100, id: 618 },
+      { name: '18:3 undifferentiated', value: 0, unit: 'g', order: 13900, id: 619 },
+      { name: '20:4 undifferentiated', value: 0, unit: 'g', order: 14700, id: 620 },
+      { name: '22:6 n-3 (DHA)', value: 0, unit: 'g', order: 15300, id: 621 },
+      { name: '22:0', value: 0, unit: 'g', order: 11200, id: 624 },
+      { name: '14:1', value: 0, unit: 'g', order: 11500, id: 625 },
+      { name: '16:1 undifferentiated', value: 0, unit: 'g', order: 11700, id: 626 },
+      { name: '18:4', value: 0, unit: 'g', order: 14250, id: 627 },
+      { name: '20:1', value: 0, unit: 'g', order: 12400, id: 628 },
+      { name: '20:5 n-3 (EPA)', value: 0, unit: 'g', order: 15000, id: 629 },
+      { name: '22:1 undifferentiated', value: 0, unit: 'g', order: 12500, id: 630 },
+      { name: '22:5 n-3 (DPA)', value: 0, unit: 'g', order: 15200, id: 631 },
+      { name: 'Phytosterols', value: 0, unit: 'mg', order: 15800, id: 636 },
+      { name: 'Stigmasterol', value: 0, unit: 'mg', order: 15900, id: 638 },
+      { name: 'Campesterol', value: 0, unit: 'mg', order: 16000, id: 639 },
+      { name: 'Beta-sitosterol', value: 0, unit: 'mg', order: 16200, id: 641 },
+      { name: 'Fatty acids, total monounsaturated', value: 0, unit: 'g', order: 11400, id: 645 },
+      { name: 'Fatty acids, total polyunsaturated', value: 0, unit: 'g', order: 12900, id: 646 },
+      { name: '15:0', value: 0, unit: 'g', order: 10600, id: 652 },
+      { name: '17:0', value: 0, unit: 'g', order: 10800, id: 653 },
+      { name: '24:0', value: 0, unit: 'g', order: 11300, id: 654 },
+      { name: '16:1 t', value: 0, unit: 'g', order: 11900, id: 662 },
+      { name: '18:1 t', value: 0, unit: 'g', order: 12300, id: 663 },
+      { name: '22:1 t', value: 0, unit: 'g', order: 12700, id: 664 },
+      { name: '18:2 t not further defined', value: 0, unit: 'g', order: 13800, id: 665 },
+      { name: '18:2 i', value: 0, unit: 'g', order: 13700, id: 666 },
+      { name: '18:2 t,t', value: 0, unit: 'g', order: 13600, id: 669 },
+      { name: '18:2 CLAs', value: 0, unit: 'g', order: 13300, id: 670 },
+      { name: '24:1 c', value: 0, unit: 'g', order: 12800, id: 671 },
+      { name: '20:2 n-6 c,c', value: 0, unit: 'g', order: 14300, id: 672 },
+      { name: '16:1 c', value: 0, unit: 'g', order: 11800, id: 673 },
+      { name: '18:1 c', value: 0, unit: 'g', order: 12200, id: 674 },
+      { name: '18:2 n-6 c,c', value: 0, unit: 'g', order: 13200, id: 675 },
+      { name: '22:1 c', value: 0, unit: 'g', order: 12600, id: 676 },
+      { name: '18:3 n-6 c,c,c', value: 0, unit: 'g', order: 14100, id: 685 },
+      { name: '17:1', value: 0, unit: 'g', order: 12000, id: 687 },
+      { name: '20:3 undifferentiated', value: 0, unit: 'g', order: 14400, id: 689 },
+      { name: 'Fatty acids, total trans-monoenoic', value: 0, unit: 'g', order: 15500, id: 693 },
+      { name: 'Fatty acids, total trans-polyenoic', value: 0, unit: 'g', order: 15600, id: 695 },
+      { name: '13:0', value: 0, unit: 'g', order: 10400, id: 696 },
+      { name: '15:1', value: 0, unit: 'g', order: 11600, id: 697 },
+      { name: '18:3 n-3 c,c,c (ALA)', value: 0, unit: 'g', order: 14000, id: 851 },
+      { name: '20:3 n-3', value: 0, unit: 'g', order: 14500, id: 852 },
+      { name: '20:3 n-6', value: 0, unit: 'g', order: 14600, id: 853 },
+      { name: '20:4 n-6', value: 0, unit: 'g', order: 14900, id: 855 },
+      { name: '18:3i', value: 0, unit: 'g', order: 14200, id: 856 },
+      { name: '21:5', value: 0, unit: 'g', order: 15100, id: 857 },
+      { name: '22:4', value: 0, unit: 'g', order: 15160, id: 858 },
+      { name: '18:1-11t (18:1t n-7)', value: 0, unit: 'g', order: 12310, id: 859 }
+    ];
+    recipe.nutrients = {};
+    recipe.ndb.forEach(o => recipe.nutrients[o.id] = o);
+    recipe.foodGroups = {
+      '1': 'Dairy',
+      '2': 'Protein',
+      '3': 'Fruit',
+      '4': 'Vegetable',
+      '5': 'Grain',
+      '6': 'Fat',
+      '7': 'Legume',
+      '8': 'Multiple'
+    };
+    recipe.nfItems = [208, 204, 606, 645, 646, 601, 307, 205, 291, 269, 203];
+    recipe.getFoods = async function (src) {
+      var resp = await fetch('https://trackapi.nutritionix.com/v2/natural/nutrients', {
+        method: 'POST',
+        body: JSON.stringify({ query: src }),
+        headers: {
+          'x-app-id': 'fa528a9d',
+          'x-app-key': 'f5a7ff7bc2b7b1a4db3e919237f39346',
+          'x-remote-user-id': 0,
+          'content-type': 'application/json'
+        }
+      });
+      var json = await resp.json();
+      return json.foods;
+    }
+
+    var app = {};
+    app.update = async function () {
+      // read dom
+      recipe.name = el('name').value;
+      recipe.source = el('ingredients').value;
+      recipe.chefsNote = el('chefsNote').value;
+      recipe.servings = Math.max(parseInt(el('servings').value) || 1, 1);
+      recipe.ingredients = recipe.source.split(/[,\n]/).filter(Boolean);
+
+      // update state
+      recipe.foods = await recipe.getFoods(recipe.source);
+      recipe.mass = recipe.foods.reduce((x, c) => x + c.serving_weight_grams, 0);
+      recipe.ndb.forEach(o => o.value = 0);
+      recipe.foods
+        .map(o => o.full_nutrients)
+        .reduce((x, c) => x.concat(c), [])
+        .filter(o => Boolean(recipe.nutrients[o.attr_id]))
+        .forEach(o => recipe.nutrients[o.attr_id].value += o.value);
+
+      // update dom
+      var fmt = n => Math.floor(n / recipe.servings);
+      el('servingSize').innerHTML = `Serving Size ${Math.floor(recipe.mass / recipe.servings)}g`;
+      el('nutrients').innerHTML = recipe.ndb.map(o =>
+        `<div class="nutrient">
+      <span>${o.name}</span>
+      <span>${fmt(o.value)}${o.unit}</span>
+    </div>`).join("\n");
+      el('foods').innerHTML = recipe.foods.map(o =>
+        `<div class="food">
+      <span>${o.food_name}</span>
+      <span>${o.serving_qty} ${o.serving_unit}</span>
+      <span>${o.serving_weight_grams}g</span>
+      <span>${o.nf_calories}kcal</span>
+      <span>${recipe.foodGroups[o.tags.food_group] || 'n/a'}</span>
+    </div>`).join("\n");
+      recipe.nfItems.forEach(n =>
+        el(`nf${n}`).innerHTML = `${fmt(recipe.nutrients[n].value)}${recipe.nutrients[n].unit}`
+      );
+    }
+
+    app.init = function () {
+      el('ingredients').addEventListener('blur', app.update);
+      el('ingredients').addEventListener('keyup', function (e) {
+        if (e.keyCode == 13 && el('ingredients').value.length > 4) {
+          app.update();
+        }
+      });
+
+    }
+    window.addEventListener('load', app.init);
+  </script>
+</body>
+
+</html>
